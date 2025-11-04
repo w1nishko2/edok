@@ -11,8 +11,20 @@ use DOMXPath;
 class RecipeListParserService
 {
     protected Client $client;
-    protected string $baseUrl = 'https://1000.menu';
-    protected int $recipesPerScroll = 20; // Количество рецептов, загружаемых за один "скролл"
+    protected string $baseUrl = 'https://povar.ru';
+    protected int $recipesPerPage = 30; // Количество рецептов на странице
+    
+    // Категории для парсинга
+    protected array $categories = [
+        'meat' => 'Блюда из мяса',
+        'fish' => 'Блюда из рыбы',
+        'ptica' => 'Блюда из птицы',
+        'vegies' => 'Блюда из овощей',
+        'salad' => 'Салаты',
+        'soup' => 'Супы',
+        'vypechka' => 'Выпечка',
+        'dessert' => 'Десерты',
+    ];
 
     public function __construct()
     {
@@ -31,25 +43,23 @@ class RecipeListParserService
     }
 
     /**
-     * Получить список URL рецептов с одной конкретной страницы
-     * Парсит только раздел /cooking/all-new (самые новые рецепты)
+     * Получить список URL рецептов с одной конкретной страницы категории
+     * Использует нумерованную пагинацию: /list/meat/, /list/meat/2/, /list/meat/3/
      *
-     * @param int $page Номер страницы
+     * @param string $category Slug категории (meat, fish, ptica и т.д.)
+     * @param int $page Номер страницы (первая страница = 1, НО URL без номера!)
      * @return array Массив URL рецептов
      */
-    public function parseRecipesList(int $page = 1): array
+    public function parseRecipesList(string $category, int $page = 1): array
     {
         try {
-            // Парсим только раздел с новыми рецептами
-            $section = '/cooking/all-new';
-            
-            // Формируем URL
-            $pageUrl = $this->baseUrl . $section;
+            // Формируем URL: первая страница БЕЗ номера, остальные - с номером
+            $pageUrl = $this->baseUrl . '/list/' . $category . '/';
             if ($page > 1) {
-                $pageUrl .= '?page=' . $page;
+                $pageUrl .= $page . '/';
             }
 
-            Log::info("🔍 Парсинг страницы {$page}: {$pageUrl}");
+            Log::info("🔍 Парсинг категории '{$category}', страница {$page}: {$pageUrl}");
 
             $recipes = $this->fetchRecipesFromUrl($pageUrl);
             
@@ -58,13 +68,14 @@ class RecipeListParserService
             return $recipes;
 
         } catch (\Exception $e) {
-            Log::error("❌ Ошибка парсинга страницы {$page}: " . $e->getMessage());
+            Log::error("❌ Ошибка парсинга категории '{$category}', страница {$page}: " . $e->getMessage());
             return [];
         }
     }
 
     /**
      * Получить рецепты из конкретного URL
+     * Парсит HTML-страницу povar.ru с помощью DOMXPath
      *
      * @param string $url URL для парсинга
      * @return array Массив URL рецептов
@@ -75,18 +86,24 @@ class RecipeListParserService
             $response = $this->client->get($url);
             $html = $response->getBody()->getContents();
             
+            // Подавляем ошибки парсинга HTML
+            libxml_use_internal_errors(true);
+            
+            $dom = new DOMDocument();
+            $dom->loadHTML($html);
+            $xpath = new DOMXPath($dom);
+            
             $recipeUrls = [];
 
-            // Используем регулярные выражения для поиска ссылок на рецепты
-            // Ищем ссылки типа /cooking/ЧИСЛО через теги <a>
-            preg_match_all('/<a[^>]*href=["\']([^"\']+)["\'][^>]*>/', $html, $matches);
+            // Ищем все ссылки на рецепты: <a href="/recipes/salat_parij-73708.html" class="listRecipieTitle">
+            $nodes = $xpath->query('//div[@class="recipe"]//a[@class="listRecipieTitle"]');
             
-            if (!empty($matches[1])) {
-                foreach ($matches[1] as $href) {
-                    // Фильтруем только ссылки на рецепты (с цифрами)
-                    if (preg_match('/\/cooking\/(\d+)/', $href, $idMatch)) {
-                        // Очищаем URL от фрагмента и параметров
-                        $href = preg_replace('/[#?].*$/', '', $href);
+            if ($nodes && $nodes->length > 0) {
+                foreach ($nodes as $node) {
+                    $href = $node->getAttribute('href');
+                    
+                    // Проверяем, что это действительно ссылка на рецепт
+                    if ($href && str_starts_with($href, '/recipes/')) {
                         $fullUrl = $this->baseUrl . $href;
                         
                         if (!in_array($fullUrl, $recipeUrls)) {
@@ -96,6 +113,7 @@ class RecipeListParserService
                 }
             }
 
+            libxml_clear_errors();
             return $recipeUrls;
 
         } catch (\Exception $e) {
@@ -105,26 +123,30 @@ class RecipeListParserService
     }
 
     /**
-     * Собрать точное количество НОВЫХ рецептов (которых еще нет в базе)
+     * Собрать точное количество НОВЫХ рецептов из указанной категории
      * Автоматически фильтрует уже существующие в базе рецепты
+     * Использует нумерованную пагинацию (1, 2, 3...)
      *
+     * @param string $category Slug категории (meat, fish, ptica и т.д.)
      * @param int $targetCount Целевое количество НОВЫХ рецептов
+     * @param int $startPage Начальная страница (по умолчанию 1, для meat можно начать с 2)
      * @return array Массив URL новых рецептов
      */
-    public function parseMultiplePages(int $targetCount = 30): array
+    public function parseMultiplePages(string $category, int $targetCount = 30, int $startPage = 1): array
     {
-        Log::info("🎯 Задача: найти {$targetCount} НОВЫХ рецептов (которых нет в БД)");
+        Log::info("🎯 Задача: найти {$targetCount} НОВЫХ рецептов из категории '{$category}' (с {$startPage}-й страницы)");
         
         $newRecipes = [];
-        $currentPage = 1;
-        $maxPages = 100; // Максимум страниц для защиты от бесконечного цикла
+        $currentPage = $startPage;
+        $maxIterations = 100; // Максимум итераций для защиты от бесконечного цикла
+        $iterations = 0;
         $totalChecked = 0;
         $emptyPagesCount = 0;
         $maxEmptyPages = 5; // Если 5 страниц подряд пустые - останавливаемся
         
-        while (count($newRecipes) < $targetCount && $currentPage <= $maxPages) {
+        while (count($newRecipes) < $targetCount && $iterations < $maxIterations) {
             // Получаем все URL с текущей страницы
-            $pageRecipes = $this->parseRecipesList($currentPage);
+            $pageRecipes = $this->parseRecipesList($category, $currentPage);
             
             if (empty($pageRecipes)) {
                 $emptyPagesCount++;
@@ -136,6 +158,7 @@ class RecipeListParserService
                 }
                 
                 $currentPage++;
+                $iterations++;
                 sleep(2);
                 continue;
             }
@@ -166,12 +189,13 @@ class RecipeListParserService
             }
             
             $currentPage++;
-            sleep(2); // Задержка между страницами
+            $iterations++;
+            sleep(rand(2, 4)); // Случайная задержка между страницами
         }
         
         Log::info("🏁 Итого собрано НОВЫХ рецептов: " . count($newRecipes) . "/{$targetCount}");
         Log::info("📈 Всего проверено URL: {$totalChecked}");
-        Log::info("📄 Просмотрено страниц: {$currentPage}");
+        Log::info("📄 Просмотрено итераций: {$iterations}");
         
         return $newRecipes;
     }
@@ -200,14 +224,12 @@ class RecipeListParserService
     }
 
     /**
-     * Установить количество рецептов на один "скролл"
+     * Получить все категории для парсинга
      *
-     * @param int $count Количество рецептов
-     * @return self
+     * @return array Массив категорий
      */
-    public function setRecipesPerScroll(int $count): self
+    public function getCategories(): array
     {
-        $this->recipesPerScroll = $count;
-        return $this;
+        return $this->categories;
     }
 }

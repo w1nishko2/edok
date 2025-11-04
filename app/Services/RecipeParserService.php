@@ -8,11 +8,13 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use DOMDocument;
+use DOMXPath;
 
 class RecipeParserService
 {
     protected Client $client;
-    protected string $baseUrl = 'https://1000.menu';
+    protected string $baseUrl = 'https://povar.ru';
 
     public function __construct()
     {
@@ -48,41 +50,50 @@ class RecipeParserService
             $response = $this->client->get($url);
             $html = $response->getBody()->getContents();
 
-            // Извлекаем данные согласно ТЗ
-            $title = $this->parseTitle($html);
-            $description = $this->parseDescription($html);
+            // Подавляем ошибки парсинга HTML
+            libxml_use_internal_errors(true);
+            
+            $dom = new DOMDocument();
+            $dom->loadHTML($html);
+            $xpath = new DOMXPath($dom);
+            
+            libxml_clear_errors();
+
+            // Извлекаем данные согласно базе данных
+            $title = $this->parseTitle($xpath);
+            $description = $this->parseDescription($xpath);
             
             $data = [
                 'title' => $title,
                 'slug' => $this->generateSlug($title, $url),
-                'meta_title' => $this->parseMetaTitle($html, $title),
-                'meta_description' => $this->parseMetaDescription($html, $description),
-                'meta_keywords' => $this->parseMetaKeywords($html, $title),
+                'meta_title' => $this->parseMetaTitle($xpath, $title),
+                'meta_description' => $this->parseMetaDescription($xpath, $description),
+                'meta_keywords' => $this->parseMetaKeywords($xpath, $title),
                 'canonical_url' => $url,
                 'description' => $description,
-                'image_path' => $this->downloadImage($html),
-                'og_image' => $this->parseOgImage($html),
-                'ingredients' => $this->parseIngredients($html),
-                'steps' => $this->parseSteps($html),
-                'nutrition' => $this->parseNutrition($html),
-                'prep_time' => $this->parsePrepTime($html),
-                'cook_time' => $this->parseCookTime($html),
-                'total_time' => $this->parseTotalTime($html),
-                'servings' => $this->parseServings($html),
-                'difficulty' => $this->parseDifficulty($html),
-                'rating' => $this->parseRating($html),
-                'rating_count' => $this->parseRatingCount($html),
+                'image_path' => $this->downloadImage($xpath),
+                'og_image' => $this->parseOgImage($xpath),
+                'ingredients' => $this->parseIngredients($xpath),
+                'steps' => $this->parseSteps($xpath),
+                'nutrition' => $this->parseNutrition($xpath),
+                'prep_time' => null, // povar.ru не разделяет prep и cook time
+                'cook_time' => null,
+                'total_time' => $this->parseTotalTime($xpath),
+                'servings' => $this->parseServings($xpath),
+                'difficulty' => null, // povar.ru не указывает сложность
+                'rating' => $this->parseRating($xpath),
+                'rating_count' => $this->parseRatingCount($xpath),
                 'source_url' => $url,
-                'views' => $this->parseViews($html),
-                'likes' => $this->parseLikes($html),
-                'dislikes' => $this->parseDislikes($html),
+                'views' => 0, // povar.ru не показывает просмотры
+                'likes' => 0, // povar.ru не показывает лайки
+                'dislikes' => 0, // povar.ru не показывает дизлайки
             ];
 
             // Создаем рецепт
             $recipe = Recipe::create($data);
             
             // Парсим и привязываем категории
-            $this->attachCategories($recipe, $html);
+            $this->attachCategories($recipe, $xpath);
             
             Log::info("Рецепт успешно создан: {$data['title']}");
 
@@ -96,41 +107,58 @@ class RecipeParserService
 
     /**
      * Парсинг названия рецепта
+     * <h1 class="detailed fn" itemprop="name">Домашняя Нутелла</h1>
      */
-    protected function parseTitle(string $html): string
+    protected function parseTitle(DOMXPath $xpath): string
     {
-        if (preg_match('/<h1[^>]*itemprop="name"[^>]*>(.*?)<\/h1>/is', $html, $matches)) {
-            return strip_tags(trim($matches[1]));
+        $nodes = $xpath->query('//h1[@class="detailed fn" and @itemprop="name"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->textContent);
         }
+        
+        // Попытка без класса
+        $nodes = $xpath->query('//h1[@itemprop="name"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->textContent);
+        }
+        
         return 'Без названия';
     }
 
     /**
      * Парсинг описания рецепта
+     * Povar.ru не всегда имеет явное описание, возьмем из meta description
      */
-    protected function parseDescription(string $html): ?string
+    protected function parseDescription(DOMXPath $xpath): ?string
     {
-        if (preg_match('/<div[^>]*class="[^"]*description[^"]*"[^>]*itemprop="description"[^>]*>.*?<span[^>]*class="description-text"[^>]*>(.*?)<\/span>/is', $html, $matches)) {
-            return strip_tags(trim($matches[1]));
+        // Пробуем найти описание в meta description
+        $nodes = $xpath->query('//meta[@name="description"]');
+        if ($nodes && $nodes->length > 0) {
+            $content = $nodes->item(0)->getAttribute('content');
+            if ($content) {
+                // Декодируем HTML-сущности (&quot; -> ")
+                return html_entity_decode(trim($content), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            }
         }
+        
         return null;
     }
 
     /**
      * Скачивание и сохранение изображения
+     * <img itemprop="image" alt="..." src="https://img.povar.ru/main/...JPG">
      */
-    protected function downloadImage(string $html): ?string
+    protected function downloadImage(DOMXPath $xpath): ?string
     {
         try {
-            // Пробуем найти изображение в img с itemprop="image"
-            if (preg_match('/<img[^>]+itemprop=["\']image["\'][^>]+src=["\']([^"\']+)["\']/', $html, $matches)) {
-                $imageUrl = $matches[1];
-            } 
-            // Если не нашли, ищем в og:image
-            elseif (preg_match('/<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']/', $html, $matches)) {
-                $imageUrl = $matches[1];
+            // Пробуем найти изображение с itemprop="image"
+            $nodes = $xpath->query('//img[@itemprop="image"]');
+            if (!$nodes || $nodes->length === 0) {
+                return null;
             }
-            else {
+            
+            $imageUrl = $nodes->item(0)->getAttribute('src');
+            if (!$imageUrl) {
                 return null;
             }
             
@@ -162,35 +190,50 @@ class RecipeParserService
 
     /**
      * Парсинг ингредиентов
+     * <li itemprop="recipeIngredient" class="ingredient">
+     *   <span class="name">Фундук</span> - 
+     *   <span class="value">100</span>
+     *   <span class="type"> гр.</span>
+     * </li>
      */
-    protected function parseIngredients(string $html): array
+    protected function parseIngredients(DOMXPath $xpath): array
     {
         $ingredients = [];
 
         try {
-            // Ищем все meta теги с recipeIngredient
-            preg_match_all('/<meta[^>]+itemprop=["\']recipeIngredient["\'][^>]+content=["\']([^"\']+)["\']/', $html, $matches);
+            $nodes = $xpath->query('//li[@itemprop="recipeIngredient"]');
             
-            foreach ($matches[1] as $ingredientText) {
-                // Разбираем строку типа "Фарш мясной - 500 гр"
-                if (preg_match('/^(.+?)\s*-\s*(.+)$/', $ingredientText, $parts)) {
-                    $name = trim($parts[1]);
-                    $quantityAndMeasure = trim($parts[2]);
+            if ($nodes && $nodes->length > 0) {
+                foreach ($nodes as $node) {
+                    $name = '';
+                    $quantity = '';
+                    $measure = '';
                     
-                    // Разделяем количество и единицу измерения
-                    if (preg_match('/^(\d+(?:[.,]\d+)?)\s*(.*)$/', $quantityAndMeasure, $qm)) {
-                        $quantity = str_replace(',', '.', $qm[1]);
-                        $measure = trim($qm[2]);
-                    } else {
-                        $quantity = '';
-                        $measure = $quantityAndMeasure;
+                    // Ищем span с классом "name"
+                    $nameNodes = $xpath->query('.//span[@class="name"]', $node);
+                    if ($nameNodes && $nameNodes->length > 0) {
+                        $name = trim($nameNodes->item(0)->textContent);
                     }
                     
-                    $ingredients[] = [
-                        'name' => $name,
-                        'quantity' => $quantity,
-                        'measure' => $measure
-                    ];
+                    // Ищем span с классом "value"
+                    $valueNodes = $xpath->query('.//span[@class="value"]', $node);
+                    if ($valueNodes && $valueNodes->length > 0) {
+                        $quantity = trim($valueNodes->item(0)->textContent);
+                    }
+                    
+                    // Ищем span с классом "type"
+                    $typeNodes = $xpath->query('.//span[@class="type"]', $node);
+                    if ($typeNodes && $typeNodes->length > 0) {
+                        $measure = trim($typeNodes->item(0)->textContent);
+                    }
+                    
+                    if ($name) {
+                        $ingredients[] = [
+                            'name' => $name,
+                            'quantity' => $quantity,
+                            'measure' => $measure
+                        ];
+                    }
                 }
             }
         } catch (\Exception $e) {
@@ -202,51 +245,64 @@ class RecipeParserService
 
     /**
      * Парсинг шагов приготовления
+     * <div class="instruction " itemscope itemtype="https://schema.org/HowToStep">
+     *   <div class="step-number" data-pseudo-text-before="Шаг 1"></div>
+     *   <div class="detailed_step_photo_big">
+     *     <img src="...">
+     *   </div>
+     *   <div class="detailed_step_description_big">Текст шага...</div>
+     * </div>
      */
-    protected function parseSteps(string $html): array
+    protected function parseSteps(DOMXPath $xpath): array
     {
         $steps = [];
 
         try {
-            // Ищем блок с инструкциями
-            if (preg_match('/<ol[^>]+class=["\']instructions["\'][^>]*>(.*?)<\/ol>/is', $html, $olMatch)) {
-                $instructionsHtml = $olMatch[1];
-                
-                // Ищем все элементы li
-                preg_match_all('/<li[^>]*>(.*?)<\/li>/is', $instructionsHtml, $liMatches);
-                
-                $index = 1;
-                foreach ($liMatches[1] as $stepHtml) {
-                    // Пропускаем рекламные блоки
-                    if (stripos($stepHtml, 'as-ad-step') !== false || stripos($stepHtml, 'adfox') !== false) {
-                        continue;
-                    }
-                    
+            // Ищем div с классом instruction (с пробелом или без)
+            $nodes = $xpath->query('//div[contains(@class, "instruction")][@itemtype="https://schema.org/HowToStep"]');
+            
+            if ($nodes && $nodes->length > 0) {
+                $stepNumber = 1;
+                foreach ($nodes as $node) {
                     $description = '';
                     $image = null;
-
-                    // Описание шага из p.instruction
-                    if (preg_match('/<p[^>]+class=["\']instruction["\'][^>]*>(.*?)<\/p>/is', $stepHtml, $descrMatch)) {
-                        $description = strip_tags(trim($descrMatch[1]));
+                    
+                    // Ищем текст шага в div.detailed_step_description_big
+                    $textNodes = $xpath->query('.//div[contains(@class, "detailed_step_description_big")]', $node);
+                    if ($textNodes && $textNodes->length > 0) {
+                        $description = trim($textNodes->item(0)->textContent);
                     }
-
-                    // Изображение шага
-                    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/', $stepHtml, $imgMatch)) {
-                        $imageSrc = $imgMatch[1];
-                        if (str_starts_with($imageSrc, '//')) {
-                            $image = 'https:' . $imageSrc;
-                        } else {
-                            $image = $imageSrc;
+                    
+                    // Если не нашли, пробуем p[@itemprop="text"] (старая структура)
+                    if (!$description) {
+                        $textNodes = $xpath->query('.//p[@itemprop="text"]', $node);
+                        if ($textNodes && $textNodes->length > 0) {
+                            $description = trim($textNodes->item(0)->textContent);
                         }
                     }
-
+                    
+                    // Ищем изображение шага
+                    $imgNodes = $xpath->query('.//img', $node);
+                    if ($imgNodes && $imgNodes->length > 0) {
+                        $imageSrc = $imgNodes->item(0)->getAttribute('src');
+                        if ($imageSrc) {
+                            if (str_starts_with($imageSrc, '//')) {
+                                $image = 'https:' . $imageSrc;
+                            } elseif (str_starts_with($imageSrc, 'http')) {
+                                $image = $imageSrc;
+                            } else {
+                                $image = $this->baseUrl . $imageSrc;
+                            }
+                        }
+                    }
+                    
                     if ($description) {
                         $steps[] = [
-                            'step_number' => $index,
+                            'step_number' => $stepNumber,
                             'description' => $description,
                             'image' => $image
                         ];
-                        $index++;
+                        $stepNumber++;
                     }
                 }
             }
@@ -259,237 +315,37 @@ class RecipeParserService
 
     /**
      * Парсинг информации о питательности
+     * Povar.ru не всегда предоставляет эти данные
      */
-    protected function parseNutrition(string $html): array
+    protected function parseNutrition(DOMXPath $xpath): array
     {
-        $nutrition = [];
-
-        try {
-            // Калории
-            if (preg_match('/<span[^>]*id="nutr_kcal"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['calories'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['calories'] = '0';
-            }
-
-            // Белки
-            if (preg_match('/<span[^>]*id="nutr_p"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['proteins'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['proteins'] = '0';
-            }
-
-            // Жиры
-            if (preg_match('/<span[^>]*id="nutr_f"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['fats'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['fats'] = '0';
-            }
-
-            // Углеводы
-            if (preg_match('/<span[^>]*id="nutr_c"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['carbs'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['carbs'] = '0';
-            }
-
-            // Проценты белков
-            if (preg_match('/<span[^>]*id="nutr_ratio_p"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['proteins_percent'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['proteins_percent'] = '0';
-            }
-
-            // Проценты жиров
-            if (preg_match('/<span[^>]*id="nutr_ratio_f"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['fats_percent'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['fats_percent'] = '0';
-            }
-
-            // Проценты углеводов
-            if (preg_match('/<span[^>]*id="nutr_ratio_c"[^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $nutrition['carbs_percent'] = strip_tags(trim($match[1]));
-            } else {
-                $nutrition['carbs_percent'] = '0';
-            }
-
-        } catch (\Exception $e) {
-            Log::error("Ошибка парсинга питательности: " . $e->getMessage());
-        }
+        $nutrition = [
+            'calories' => '0',
+            'proteins' => '0',
+            'fats' => '0',
+            'carbs' => '0',
+            'proteins_percent' => '0',
+            'fats_percent' => '0',
+            'carbs_percent' => '0',
+        ];
 
         return $nutrition;
     }
 
     /**
-     * Парсинг количества просмотров
+     * Парсинг общего времени приготовления
+     * <meta itemprop="totalTime" content="PT20M">
+     * <span class="value-title">20 мин</span>
      */
-    protected function parseViews(string $html): int
+    protected function parseTotalTime(DOMXPath $xpath): ?int
     {
-        try {
-            // Ищем span с title="Просмотров" и внутри него span с классом label
-            if (preg_match('/<span[^>]+title=["\']Просмотров["\'][^>]*>.*?<span[^>]+class=["\']label[^"\']*["\'][^>]*>(.*?)<\/span>/is', $html, $match)) {
-                $viewsText = strip_tags(trim($match[1]));
-                // Убираем пробелы из числа (267 276 -> 267276)
-                return (int) str_replace(' ', '', $viewsText);
+        // Ищем meta itemprop="totalTime"
+        $nodes = $xpath->query('//meta[@itemprop="totalTime"]');
+        if ($nodes && $nodes->length > 0) {
+            $content = $nodes->item(0)->getAttribute('content');
+            if ($content) {
+                return $this->parseIsoDuration($content);
             }
-        } catch (\Exception $e) {
-            Log::error("Ошибка парсинга просмотров: " . $e->getMessage());
-        }
-        return 0;
-    }
-
-    /**
-     * Парсинг лайков
-     */
-    protected function parseLikes(string $html): int
-    {
-        try {
-            // Ищем span с классом "type like" и внутри него a с классом review-points
-            if (preg_match('/<span[^>]+class=["\'][^"\']*type like[^"\']*["\'][^>]*>.*?<a[^>]+class=["\'][^"\']*review-points[^"\']*["\'][^>]*>\s*(\d+)\s*<\/a>/is', $html, $match)) {
-                return (int) trim($match[1]);
-            }
-        } catch (\Exception $e) {
-            Log::error("Ошибка парсинга лайков: " . $e->getMessage());
-        }
-        return 0;
-    }
-
-    /**
-     * Генерация slug из URL и названия
-     */
-    protected function generateSlug(string $title, string $url): string
-    {
-        // Пытаемся извлечь slug из URL
-        if (preg_match('/\/cooking\/\d+-(.+)$/', $url, $matches)) {
-            return $matches[1];
-        }
-        
-        // Если не получилось, создаем из названия
-        return Str::slug($title);
-    }
-
-    /**
-     * Парсинг meta title из HTML
-     */
-    protected function parseMetaTitle(string $html, string $defaultTitle): ?string
-    {
-        // Ищем meta property="og:title"
-        if (preg_match('/<meta[^>]+property=["\']og:title["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return trim($matches[1]);
-        }
-        
-        // Ищем тег <title>
-        if (preg_match('/<title[^>]*>(.*?)<\/title>/is', $html, $matches)) {
-            return trim(strip_tags($matches[1]));
-        }
-        
-        return $defaultTitle . ' - Рецепт приготовления с фото';
-    }
-
-    /**
-     * Парсинг meta description
-     */
-    protected function parseMetaDescription(string $html, ?string $defaultDescription): ?string
-    {
-        // Ищем meta name="description"
-        if (preg_match('/<meta[^>]+name=["\']description["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return trim($matches[1]);
-        }
-        
-        // Ищем meta property="og:description"
-        if (preg_match('/<meta[^>]+property=["\']og:description["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return trim($matches[1]);
-        }
-        
-        // Если есть описание из парсинга, обрезаем до 160 символов
-        if ($defaultDescription) {
-            return mb_substr($defaultDescription, 0, 160);
-        }
-        
-        return null;
-    }
-
-    /**
-     * Парсинг meta keywords
-     */
-    protected function parseMetaKeywords(string $html, string $title): ?string
-    {
-        // Ищем meta name="keywords"
-        if (preg_match('/<meta[^>]+name=["\']keywords["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return trim($matches[1]);
-        }
-        
-        // Генерируем из названия
-        $keywords = [];
-        $keywords[] = $title;
-        $keywords[] = 'рецепт';
-        $keywords[] = 'приготовление';
-        $keywords[] = 'с фото';
-        
-        return implode(', ', $keywords);
-    }
-
-    /**
-     * Парсинг Open Graph изображения
-     */
-    protected function parseOgImage(string $html): ?string
-    {
-        // Ищем meta property="og:image"
-        if (preg_match('/<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return trim($matches[1]);
-        }
-        
-        return null;
-    }
-
-    /**
-     * Парсинг времени подготовки
-     */
-    protected function parsePrepTime(string $html): ?int
-    {
-        // Ищем время подготовки в микроданных
-        if (preg_match('/<meta[^>]+itemprop=["\']prepTime["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return $this->parseIsoDuration($matches[1]);
-        }
-        
-        return null;
-    }
-
-    /**
-     * Парсинг времени приготовления
-     */
-    protected function parseCookTime(string $html): ?int
-    {
-        // Ищем время приготовления в микроданных
-        if (preg_match('/<meta[^>]+itemprop=["\']cookTime["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return $this->parseIsoDuration($matches[1]);
-        }
-        
-        return null;
-    }
-
-    /**
-     * Парсинг общего времени
-     */
-    protected function parseTotalTime(string $html): ?int
-    {
-        // Ищем общее время в микроданных (формат ISO 8601: PT2H, PT30M, PT1H30M)
-        if (preg_match('/<meta[^>]+itemprop=["\']totalTime["\'][^>]+content=["\']([^"\']+)["\'][^>]*>/i', $html, $matches)) {
-            return $this->parseIsoDuration($matches[1]);
-        }
-        
-        // Если не найдено в meta, ищем в span с классом duration
-        if (preg_match('/<span[^>]+class=["\']duration["\'][^>]*>([^<]+)<\/span>/i', $html, $matches)) {
-            return $this->parseIsoDuration(trim($matches[1]));
-        }
-        
-        // Если есть prep_time и cook_time, суммируем
-        $prepTime = $this->parsePrepTime($html);
-        $cookTime = $this->parseCookTime($html);
-        
-        if ($prepTime && $cookTime) {
-            return $prepTime + $cookTime;
         }
         
         return null;
@@ -522,57 +378,30 @@ class RecipeParserService
 
     /**
      * Парсинг количества порций
+     * <span itemprop="recipeYield" class="yield value">6</span>
      */
-    protected function parseServings(string $html): ?int
+    protected function parseServings(DOMXPath $xpath): ?int
     {
-        // Ищем количество порций в микроданных
-        if (preg_match('/<meta[^>]+itemprop=["\']recipeYield["\'][^>]+content=["\'](\d+)["\'][^>]*>/i', $html, $matches)) {
-            return (int) $matches[1];
-        }
-        
-        // Ищем в тексте "на N порций"
-        if (preg_match('/на\s+(\d+)\s+порц/iu', $html, $matches)) {
-            return (int) $matches[1];
+        $nodes = $xpath->query('//span[@itemprop="recipeYield"]');
+        if ($nodes && $nodes->length > 0) {
+            $text = trim($nodes->item(0)->textContent);
+            if (preg_match('/(\d+)/', $text, $matches)) {
+                return (int) $matches[1];
+            }
         }
         
         return null;
     }
 
     /**
-     * Парсинг сложности рецепта
-     */
-    protected function parseDifficulty(string $html): ?string
-    {
-        // Ищем уровень сложности
-        if (preg_match('/сложность["\'\s:>]*([а-яё]+)/iu', $html, $matches)) {
-            $difficulty = mb_strtolower(trim($matches[1]));
-            
-            if (in_array($difficulty, ['легкий', 'простой', 'легко'])) {
-                return 'easy';
-            } elseif (in_array($difficulty, ['средний', 'средняя'])) {
-                return 'medium';
-            } elseif (in_array($difficulty, ['сложный', 'трудный', 'сложно'])) {
-                return 'hard';
-            }
-        }
-        
-        return 'medium'; // По умолчанию средняя сложность
-    }
-
-    /**
      * Парсинг рейтинга
+     * <span itemprop="ratingValue">5.0</span>
      */
-    protected function parseRating(string $html): float
+    protected function parseRating(DOMXPath $xpath): float
     {
-        // Ищем рейтинг в микроданных
-        if (preg_match('/<meta[^>]+itemprop=["\']ratingValue["\'][^>]+content=["\']([0-9.]+)["\'][^>]*>/i', $html, $matches)) {
-            $rating = (float) $matches[1];
-            return min(5.0, max(0.0, $rating)); // Ограничиваем от 0 до 5
-        }
-        
-        // Ищем в другом формате
-        if (preg_match('/рейтинг["\'\s:>]*([0-9.]+)/iu', $html, $matches)) {
-            $rating = (float) str_replace(',', '.', $matches[1]);
+        $nodes = $xpath->query('//span[@itemprop="ratingValue"]');
+        if ($nodes && $nodes->length > 0) {
+            $rating = (float) trim($nodes->item(0)->textContent);
             return min(5.0, max(0.0, $rating));
         }
         
@@ -581,157 +410,147 @@ class RecipeParserService
 
     /**
      * Парсинг количества оценок
+     * <span itemprop="ratingCount">234</span>
      */
-    protected function parseRatingCount(string $html): int
+    protected function parseRatingCount(DOMXPath $xpath): int
     {
-        // Ищем количество оценок в микроданных
-        if (preg_match('/<meta[^>]+itemprop=["\']ratingCount["\'][^>]+content=["\'](\d+)["\'][^>]*>/i', $html, $matches)) {
-            return (int) $matches[1];
-        }
-        
-        // Ищем в тексте "N оценок"
-        if (preg_match('/(\d+)\s+оценок/iu', $html, $matches)) {
-            return (int) $matches[1];
+        $nodes = $xpath->query('//span[@itemprop="ratingCount"]');
+        if ($nodes && $nodes->length > 0) {
+            return (int) trim($nodes->item(0)->textContent);
         }
         
         return 0;
     }
 
     /**
-     * Парсинг дизлайков
+     * Генерация slug из URL
+     * URL формат: /recipes/salat_parij-73708.html
      */
-    protected function parseDislikes(string $html): int
+    protected function generateSlug(string $title, string $url): string
     {
-        try {
-            // Ищем span с классом "type dislike" и внутри него a с классом review-points
-            if (preg_match('/<span[^>]+class=["\'][^"\']*type dislike[^"\']*["\'][^>]*>.*?<a[^>]+class=["\'][^"\']*review-points[^"\']*["\'][^>]*>\s*(\d+)\s*<\/a>/is', $html, $match)) {
-                return (int) trim($match[1]);
+        // Извлекаем slug из URL
+        if (preg_match('/\/recipes\/(.+)\.html/', $url, $matches)) {
+            return $matches[1];
+        }
+        
+        // Если не получилось, создаем из названия
+        return Str::slug($title);
+    }
+
+    /**
+     * Парсинг meta title
+     */
+    protected function parseMetaTitle(DOMXPath $xpath, string $defaultTitle): ?string
+    {
+        // Ищем meta property="og:title"
+        $nodes = $xpath->query('//meta[@property="og:title"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->getAttribute('content'));
+        }
+        
+        // Ищем тег <title>
+        $nodes = $xpath->query('//title');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->textContent);
+        }
+        
+        return $defaultTitle . ' - Рецепт приготовления с фото';
+    }
+
+    /**
+     * Парсинг meta description
+     */
+    protected function parseMetaDescription(DOMXPath $xpath, ?string $defaultDescription): ?string
+    {
+        // Ищем meta name="description"
+        $nodes = $xpath->query('//meta[@name="description"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->getAttribute('content'));
+        }
+        
+        // Ищем meta property="og:description"
+        $nodes = $xpath->query('//meta[@property="og:description"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->getAttribute('content'));
+        }
+        
+        // Если есть описание, обрезаем до 160 символов
+        if ($defaultDescription) {
+            return mb_substr($defaultDescription, 0, 160);
+        }
+        
+        return null;
+    }
+
+    /**
+     * Парсинг meta keywords
+     */
+    protected function parseMetaKeywords(DOMXPath $xpath, string $title): ?string
+    {
+        // Ищем meta name="keywords"
+        $nodes = $xpath->query('//meta[@name="keywords"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->getAttribute('content'));
+        }
+        
+        // Ищем itemprop="keywords"
+        $nodes = $xpath->query('//span[@itemprop="keywords"]');
+        if ($nodes && $nodes->length > 0) {
+            $keywords = [];
+            foreach ($nodes as $node) {
+                $keywords[] = trim($node->textContent);
             }
-        } catch (\Exception $e) {
-            Log::error("Ошибка парсинга дизлайков: " . $e->getMessage());
+            return implode(', ', $keywords);
         }
-        return 0;
+        
+        // Генерируем из названия
+        return $title . ', рецепт, приготовление, с фото';
     }
 
     /**
-     * Парсинг категорий из breadcrumbs
+     * Парсинг Open Graph изображения
      */
-    protected function parseCategories(string $html): array
+    protected function parseOgImage(DOMXPath $xpath): ?string
+    {
+        $nodes = $xpath->query('//meta[@property="og:image"]');
+        if ($nodes && $nodes->length > 0) {
+            return trim($nodes->item(0)->getAttribute('content'));
+        }
+        
+        return null;
+    }
+
+    /**
+     * Парсинг категорий
+     * <span itemprop="recipeCategory">Десерты</span>
+     */
+    protected function parseCategories(DOMXPath $xpath): array
     {
         $categories = [];
         
         try {
-            Log::info("🔍 Начинаем парсинг категорий из breadcrumbs");
+            // Ищем span itemprop="recipeCategory"
+            $nodes = $xpath->query('//span[@itemprop="recipeCategory"]');
             
-            // Ищем breadcrumbs - пробуем несколько вариантов
-            $breadcrumbsHtml = '';
-            
-            // Вариант 1: стандартный breadcrumbs
-            if (preg_match('/<ol[^>]+class=["\'][^"\']*breadcrumbs[^"\']*["\'][^>]*>(.*?)<\/ol>/is', $html, $breadcrumbsMatch)) {
-                $breadcrumbsHtml = $breadcrumbsMatch[1];
-                Log::info("✅ Breadcrumbs найдены (вариант 1)");
-                
-                // Сохраняем breadcrumbs в файл для отладки (только первый раз)
-                $debugFile = storage_path('logs/breadcrumbs_debug.html');
-                if (!file_exists($debugFile)) {
-                    file_put_contents($debugFile, $breadcrumbsHtml);
-                    Log::info("📝 Breadcrumbs HTML сохранен в: " . $debugFile);
-                }
-            }
-            // Вариант 2: BreadcrumbList в schema.org
-            elseif (preg_match('/<ol[^>]+itemtype=["\'].*?BreadcrumbList[^"\']*["\'][^>]*>(.*?)<\/ol>/is', $html, $breadcrumbsMatch)) {
-                $breadcrumbsHtml = $breadcrumbsMatch[1];
-                Log::info("✅ Breadcrumbs найдены (вариант 2 - schema.org)");
-            }
-            
-            if (empty($breadcrumbsHtml)) {
-                Log::warning("⚠️ Breadcrumbs не найдены в HTML");
-                return [];
-            }
-            
-            // Извлекаем все элементы breadcrumb - несколько вариантов парсинга
-            $categoryNames = [];
-            
-            // Извлекаем все <li> элементы с itemprop="itemListElement"
-            // Важно: <li> теги могут быть не закрыты в HTML!
-            if (preg_match_all('/<li[^>]*itemprop=["\']itemListElement["\'][^>]*>.*?(?=<li|$)/is', $breadcrumbsHtml, $liMatches)) {
-                Log::info("🔍 Найдено <li> элементов: " . count($liMatches[0]));
-                
-                foreach ($liMatches[0] as $liHtml) {
-                    Log::info("🔎 Обрабатываем элемент: " . mb_substr($liHtml, 0, 100) . "...");
-                    
-                    // Пропускаем элементы с class="hidden" (это обычно название рецепта)
-                    if (preg_match('/class=["\'][^"\']*hidden[^"\']*["\']/', $liHtml)) {
-                        Log::info("⏭️ Пропускаем скрытый элемент");
-                        continue;
-                    }
-                    
-                    // Извлекаем текст из <span itemprop="name">
-                    if (preg_match('/<span[^>]*itemprop=["\']name["\'][^>]*>([^<]+)<\/span>/is', $liHtml, $nameMatch)) {
-                        $name = strip_tags(trim($nameMatch[1]));
-                        
-                        Log::info("🔤 Найден текст в span: '{$name}'");
-                        
-                        // Пропускаем "Главная" и пустые значения
-                        if ($name && $name !== 'Главная' && $name !== 'главная' && mb_strlen($name) > 2) {
-                            $categoryNames[] = $name;
-                            Log::info("✅ Найдена категория: {$name}");
-                        } else {
-                            Log::info("⏭️ Пропускаем: '{$name}'");
-                        }
-                    } else {
-                        Log::warning("⚠️ Не найден span itemprop='name' в элементе");
+            if ($nodes && $nodes->length > 0) {
+                $position = 0;
+                foreach ($nodes as $node) {
+                    $name = trim($node->textContent);
+                    if ($name) {
+                        $categories[] = [
+                            'name' => $name,
+                            'position' => $position++,
+                        ];
                     }
                 }
-            } else {
-                Log::warning("⚠️ Не найдено ни одного <li> элемента");
-            }
-            
-            // Убираем дубликаты
-            $categoryNames = array_values(array_unique($categoryNames));
-
-            // Попробуем удалить название самого рецепта, если оно попало в список
-            try {
-                $pageTitle = $this->parseTitle($html);
-                if ($pageTitle) {
-                    // Удаляем элементы, совпадающие с заголовком рецепта или содержащие его
-                    $categoryNames = array_filter($categoryNames, function ($n) use ($pageTitle) {
-                        $nTrim = mb_strtolower(trim($n));
-                        $tTrim = mb_strtolower(trim($pageTitle));
-                        if ($nTrim === $tTrim) {
-                            return false;
-                        }
-                        if (mb_stripos($nTrim, $tTrim) !== false || mb_stripos($tTrim, $nTrim) !== false) {
-                            return false;
-                        }
-                        return true;
-                    });
-
-                    // Переиндексируем массив
-                    $categoryNames = array_values($categoryNames);
-                }
-            } catch (\Exception $e) {
-                // Если по какой-то причине не получилось получить заголовок — ничего критичного
-                Log::warning("Не удалось сравнить с заголовком рецепта: " . $e->getMessage());
-            }
-            
-            // Формируем результат (сохраняем порядок)
-            foreach (array_values($categoryNames) as $index => $name) {
-                $categories[] = [
-                    'name' => $name,
-                    'position' => $index,
-                ];
             }
             
             if (!empty($categories)) {
                 Log::info("✅ Найдено категорий: " . count($categories) . " - " . implode(', ', array_column($categories, 'name')));
-            } else {
-                Log::warning("⚠️ Категории не извлечены из breadcrumbs");
             }
             
         } catch (\Exception $e) {
             Log::error("❌ Ошибка парсинга категорий: " . $e->getMessage());
-            Log::error("Stack trace: " . $e->getTraceAsString());
         }
         
         return $categories;
@@ -740,10 +559,10 @@ class RecipeParserService
     /**
      * Привязка категорий к рецепту
      */
-    protected function attachCategories(Recipe $recipe, string $html): void
+    protected function attachCategories(Recipe $recipe, DOMXPath $xpath): void
     {
         try {
-            $parsedCategories = $this->parseCategories($html);
+            $parsedCategories = $this->parseCategories($xpath);
             
             if (empty($parsedCategories)) {
                 Log::warning("⚠️ Категории не найдены для рецепта: {$recipe->title}");
@@ -753,24 +572,20 @@ class RecipeParserService
             Log::info("🏷️ Привязываем категории к рецепту: {$recipe->title}");
 
             $categoryIds = [];
-            $parentCategory = null;
 
-            foreach ($parsedCategories as $index => $categoryData) {
+            foreach ($parsedCategories as $categoryData) {
                 // Создаем или получаем категорию
                 $category = Category::firstOrCreate(
                     ['name' => $categoryData['name']],
                     [
                         'slug' => Str::slug($categoryData['name']),
-                        'parent_id' => $parentCategory ? $parentCategory->id : null,
+                        'parent_id' => null,
                     ]
                 );
 
                 $categoryIds[] = $category->id;
                 
-                Log::info("📁 Категория '{$category->name}' (ID: {$category->id}, Parent: " . ($parentCategory ? $parentCategory->name : 'нет') . ")");
-                
-                // Сохраняем для следующей итерации (следующая категория будет дочерней)
-                $parentCategory = $category;
+                Log::info("📁 Категория '{$category->name}' (ID: {$category->id})");
             }
 
             // Привязываем все категории к рецепту
@@ -790,7 +605,6 @@ class RecipeParserService
             }
         } catch (\Exception $e) {
             Log::error("❌ Ошибка привязки категорий к рецепту {$recipe->title}: " . $e->getMessage());
-            Log::error("Stack trace: " . $e->getTraceAsString());
         }
     }
 }

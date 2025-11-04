@@ -4,41 +4,59 @@ namespace App\Console\Commands;
 
 use App\Models\RecipeQueue;
 use App\Services\RecipeListParserService;
-use App\Services\InfiniteScrollBrowserParserService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
 class CollectRecipeUrls extends Command
 {
     protected $signature = 'recipes:collect-urls 
-                            {--count=100 : Количество URL для сбора}
-                            {--use-browser : Использовать headless браузер для infinite scroll}';
+                            {category? : Категория для парсинга (meat, fish, ptica и т.д.)}
+                            {--count=30 : Количество URL для сбора}
+                            {--start-page=1 : Начальная страница (для meat можно начать с 2)}';
 
-    protected $description = 'Сбор URL рецептов и добавление в очередь (легкая задача, каждые 15 мин)';
+    protected $description = 'Сбор URL рецептов с povar.ru и добавление в очередь (легкая задача, каждые 15 мин)';
 
-    public function handle(
-        RecipeListParserService $parser,
-        InfiniteScrollBrowserParserService $browserParser
-    ): int
+    public function handle(RecipeListParserService $parser): int
     {
+        $category = $this->argument('category');
         $targetCount = (int) $this->option('count');
-        $useBrowser = $this->option('use-browser');
+        $startPage = (int) $this->option('start-page');
 
         $this->info("╔════════════════════════════════════════════════════════╗");
-        $this->info("║   📥 Сбор URL рецептов в очередь                     ║");
+        $this->info("║   📥 Сбор URL рецептов с Povar.ru                    ║");
         $this->info("╚════════════════════════════════════════════════════════╝");
         $this->newLine();
 
-        $this->info("🎯 Цель: {$targetCount} новых URL");
-        $this->info("🔧 Метод: " . ($useBrowser ? "Headless Browser (infinite scroll)" : "Обычный парсинг"));
-        $this->newLine();
-
-        // Собираем URL
-        if ($useBrowser) {
-            $this->info("🌐 Запуск headless браузера...");
-            $urls = $browserParser->collectNewRecipes($targetCount);
+        // Если категория не указана, собираем из всех
+        if (!$category) {
+            $categories = $parser->getCategories();
+            $this->info("� Будут обработаны все категории:");
+            foreach ($categories as $slug => $name) {
+                $this->info("  • {$slug} - {$name}");
+            }
+            $this->newLine();
+            
+            $allUrls = [];
+            foreach (array_keys($categories) as $slug) {
+                $this->info("🔍 Обрабатываем категорию: {$slug}");
+                $urls = $parser->parseMultiplePages($slug, $targetCount, $startPage);
+                $allUrls = array_merge($allUrls, $urls);
+                
+                if (count($urls) > 0) {
+                    $this->info("  ✅ Найдено: " . count($urls));
+                }
+                
+                sleep(rand(2, 4)); // Пауза между категориями
+            }
+            
+            $urls = $allUrls;
         } else {
-            $urls = $parser->parseMultiplePages($targetCount);
+            $this->info("🎯 Категория: {$category}");
+            $this->info("🎯 Цель: {$targetCount} новых URL");
+            $this->info("📄 Начальная страница: {$startPage}");
+            $this->newLine();
+
+            $urls = $parser->parseMultiplePages($category, $targetCount, $startPage);
         }
 
         if (empty($urls)) {

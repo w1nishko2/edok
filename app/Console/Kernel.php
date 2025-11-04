@@ -12,16 +12,27 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // Парсинг каждые 30 минут по 42 рецепта = ровно 2016 рецептов в сутки
-        // 48 запусков в день × 42 рецепта = 2016 рецептов
-        $schedule->command('recipes:parse --count=42')
-            ->everyThirtyMinutes()
-            ->appendOutputTo(storage_path('logs/parser.log'));
+        // НОВАЯ СХЕМА РАБОТЫ (2 отдельных процесса):
+        
+        // 1. Сбор URL рецептов - легкая задача каждые 15 минут
+        // Собирает URLs и добавляет в очередь recipe_queue
+        $schedule->command('recipes:collect-urls --count=30')
+            ->everyFifteenMinutes()
+            ->appendOutputTo(storage_path('logs/url-collector.log'));
 
-        // Обновление sitemap каждые 2 часа
+        // 2. Обработка очереди - тяжелая задача каждые 30 минут
+        // Парсит полные данные рецептов (50 штук за раз)
+        $schedule->command('recipes:process-queue --limit=50')
+            ->everyThirtyMinutes()
+            ->appendOutputTo(storage_path('logs/queue-processor.log'));
+
+        // 3. Обновление sitemap каждые 2 часа
         $schedule->command('sitemap:generate')
             ->everyTwoHours()
             ->appendOutputTo(storage_path('logs/sitemap.log'));
+            
+        // ПРИМЕЧАНИЕ: Для ПРОДАКШН используйте CRONTAB (см. PRODUCTION_CRONTAB_NEW.txt)
+        // Там настроен бесконечный сборщик + обработка по 50 рецептов каждые 30 мин
     }
 
     /**

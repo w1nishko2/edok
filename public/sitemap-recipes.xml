@@ -1,63 +1,1164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
-    <loc>https://im-edok/recipe/zharenaya-morkov-s-lukom</loc>
-    <lastmod>2025-11-04T18:11:43+00:00</lastmod>
+    <loc>https://im-edok/recipe/salat_s_gribami_i_fasoliu-37185</loc>
+    <lastmod>2025-11-04T21:06:52+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://im-edok/storage/recipes/QqoBrvcSqzgs9DHhujWDibWYg7NynfKn5M2ah33O.jpg</image:loc>
+      <image:loc>https://im-edok/storage/recipes/mmLz5qCp2sIx2e36eNbz2gNUB3oKHsneBgGgjUz7.JPG</image:loc>
+      <image:title>Салат с грибами и фасолью</image:title>
+      <image:caption>Если не знаете, как приготовить простой и вкусный салат к ужину, вам сюда. В моем рецепте доступные продукты и совсем нет майонеза. Смотрите, как приготовить салат с грибами и фасолью. Вам понравится!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_cezar_idealnyi-64116</loc>
+    <lastmod>2025-11-04T21:06:49+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/squdsx4F3pEW2JdyuiZbLVcey4EWcqb6JxlfevdD.jpg</image:loc>
+      <image:title>Салат &quot;Цезарь&quot; (идеальный)</image:title>
+      <image:caption>Салат &amp;quot;Цезарь&amp;quot; - один из немногих салатов, который имеет, кроме имени своего создателя, еще точную дату, когда был придуман. Конечно, со временем рецепт во многом изменился, появилось много </image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/sloenyi_salat_s_treskoi-72879</loc>
+    <lastmod>2025-11-04T21:06:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/Vwj67smr5szJ9ZqWuhvfwVerC99lHctKQiPs9o1i.jpg</image:loc>
+      <image:title>Слоеный салат с треской</image:title>
+      <image:caption>Сытный и вкусный салат с вареной треской! Вариант подходящий для холодной снежной зимы, когда хочется блюд, которые греют душу и тело! А украсим в виде яркой поляны для услады глаз и настроения!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pp_salat_s_avokado-73374</loc>
+    <lastmod>2025-11-04T21:06:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/W9WpGA4nLEpShQPf6Bu8rcB9gwsLW72i9G9vNlez.JPG</image:loc>
+      <image:title>ПП салат с авокадо</image:title>
+      <image:caption>Гармоничный, вкусный и легкий салат к ужину! Авокадо с кислинкой лимона дополняется свежим огурцом и куриной грудкой. Всё это под вкусным свежим соусом! Вкусно будет всем без исключения.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_meduza-73524</loc>
+    <lastmod>2025-11-04T21:06:40+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/tIjbZt6mT2nYbxC4BKhE0kchPPK1HctSTf4jCrWm.jpg</image:loc>
+      <image:title>Салат &quot;Медуза&quot;</image:title>
+      <image:caption>Свежий, вкусный и сочный салат из морепродуктов! Легкий на вкус и простой в приготовлении! Вполне может заменить ужин! Отличный вариант для сторонников правильного питания.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_seld_pod_shuboi-3944</loc>
+    <lastmod>2025-11-04T21:06:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/qPDiSqwoHLCy7BfZe9aB0MNXhzNd7XbmkwvdAHC5.jpg</image:loc>
+      <image:title>Салат Сельдь под шубой</image:title>
+      <image:caption>Простой рецепт с пошаговыми фотографиями приготовления традиционного русского новогоднего блюда «Сельдь под шубой».</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_znakomyi-73503</loc>
+    <lastmod>2025-11-04T21:06:35+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/cwfjXGs9xNvToIxtp2ZdCoVvwhL7UuBaQfxrHyus.jpg</image:loc>
+      <image:title>Салат &quot;Знакомый&quot;</image:title>
+      <image:caption>Очень вкусный домашний салатик с овощами и курочкой! Гармоничный, сытный, зимний! Всё, что нужно! Обязательно приготовьте для своих близких в выходной день.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_kievskii-73680</loc>
+    <lastmod>2025-11-04T21:06:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/S0ysydAjKQv6aNgHu0Cddwto8ooyDGlfKmsTsULB.jpg</image:loc>
+      <image:title>Салат &quot;Киевский&quot;</image:title>
+      <image:caption>В состав входит минимальный набор продуктов. Они чудесным образом сочетаются так, что хочется есть ещё и ещё. А копчёный вкус ветчины и сочность перца придают ему свою неповторимую нотку.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/myasnoi_salat_kryska-78783</loc>
+    <lastmod>2025-11-04T21:06:29+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/4sd5kGMcGxNKvOgiRifTrBwmpKnqa9JilyJeg5ai.JPG</image:loc>
+      <image:title>Мясной салат &quot;Крыска&quot;</image:title>
+      <image:caption>В канун новогоднего праздника вам обязательно пригодится рецепт вкусного, сытного салата из ветчины и языка, приготовленного в виде символа грядущего года - Крысы.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/derzkii_salat_iz_brokkoli-1828</loc>
+    <lastmod>2025-11-04T21:06:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/k8zXrm9uByEVGkE6XarhKiM9iQ8RGvVH9a90zaFh.jpg</image:loc>
+      <image:title>Дерзкий салат из брокколи</image:title>
+      <image:caption>Рецепт приготовления салата из брокколи - очень вкусного салата, который можно запросто подавать даже на праздничный стол. В США такой салат из брокколи считается классическим. Рекомендую попробовать!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pp_salat_s_tuncom-73370</loc>
+    <lastmod>2025-11-04T21:06:23+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/mAc8tof8jRdLDgJl5Ntwpqn8O8GT3oEkZncYU2WV.jpg</image:loc>
+      <image:title>ПП салат с тунцом</image:title>
+      <image:caption>Простой салат с тунцом, яйцом и свежими овощами можно подать на обед или ужин для двоих. Это простое и полезное блюдо, которое готовится на раз, два, три. Готовьте с пользой и удовольствием!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/novogodnii_salat_nefritovyi_braslet-5277</loc>
+    <lastmod>2025-11-04T21:06:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/7xxS3qJLaPKwcd7WRtBvlkAk8pMmTAOCnOIXzvBC.jpg</image:loc>
+      <image:title>Новогодний салат &quot;Нефритовый браслет&quot;</image:title>
+      <image:caption>Рецепт приготовления салата «Нефритовый браслет». В этом салате отличнейшее сочетание киви и мяса. Салат получается красивым и вкусным.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_liubovnica-7391</loc>
+    <lastmod>2025-11-04T21:06:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/1HktcYeJ6XClWCwiDhApMjGwsBdyfc1kqWvVA4Qn.JPG</image:loc>
+      <image:title>Салат &quot;Любовница&quot;</image:title>
+      <image:caption>Как роковая любовница, этот салат всегда привлекателен и аппетитен. В нем есть своя изюминка, и он никогда не надоест, ведь он не пресный, а наоборот возбуждает своей остротой. Целая легенда!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_russkaya_krasavica-9674</loc>
+    <lastmod>2025-11-04T21:06:14+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/h0Psa1CL3UTc8SihI5aqLEr0p1NxSMaeAqneDKsS.jpeg</image:loc>
+      <image:title>Салат Русская красавица</image:title>
+      <image:caption>Салат Русская красавица - очень вкусный, популярный, эффектный салат, достойный вашего праздничного стола. Поведаю вам очень простой рецепт салата Русская красавица - разберется каждый.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/teplyi_salat_s_kuricei-10850</loc>
+    <lastmod>2025-11-04T21:06:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/jC5KsbqaY5RayMnkam6FXHnDMZhvV788VrwlCxoE.jpg</image:loc>
+      <image:title>Теплый салат с курицей</image:title>
+      <image:caption>Когда-то я работал официантом в дорогом питерском ресторане, где все гости почему-то заказывали теплый салат с курицей. С тех пор у меня осталось ощущение, что это самый популярный салат в мире :)</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tykva_po-koreiski-53648</loc>
+    <lastmod>2025-11-04T21:06:06+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/cJ2OgiJGORmf008vA0fg43SSWz79bJu8vMncRAel.JPG</image:loc>
+      <image:title>Тыква по-корейски</image:title>
+      <image:caption>Тыква — весьма ценный плод, он содержит множество витаминов и микроэлементов. Я стараюсь чаще употреблять ее в свежем или маринованном виде. Сегодня хочу показать, как приготовить тыкву по-корейски.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/rybnyi_salat_v_sedobnyh_tarelochkah-72182</loc>
+    <lastmod>2025-11-04T21:06:03+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/1v3uXQJPfK3kMPLkkTim0EwjcTGdb7DLy0XShTwZ.jpg</image:loc>
+      <image:title>Рыбный салат в съедобных тарелочках</image:title>
+      <image:caption>Для праздничного стола или фуршета запишите рецепт, как приготовить рыбный салат в съедобных тарелочках. Нежный и сытный салат из консервированной красной рыбы, риса и яблока на хрустящей основе.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_granatovyi-73167</loc>
+    <lastmod>2025-11-04T21:06:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/juQF1rwFJ2YasRtd0wWKxSEkY9dpdQNb8vm7CkNP.jpg</image:loc>
+      <image:title>Салат &quot;Гранатовый&quot;</image:title>
+      <image:caption>Добавление в салаты зерен граната - это всегда ново, свежо и интересно! Предложенный салат хоть и простой, но в то же время очень вкусный, яркий и гармоничный! Угощайтесь!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pp_salat_s_kalmarom-73378</loc>
+    <lastmod>2025-11-04T21:05:57+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/ubj5UJQtbELwtMKK9uuHM1gPjo85x3ISySs3QIzE.JPG</image:loc>
+      <image:title>ПП салат с кальмаром</image:title>
+      <image:caption>Легкий салат из кальмаров разнообразит ваш рацион. Любителям морепродуктов и просто тем, кто любит здоровую пищу, рекомендую обратить внимание на данный рецепт. Вкусно, полезно и не хлопотно!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/ovoshnoi_vinegret-73483</loc>
+    <lastmod>2025-11-04T21:05:55+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/IVx8UJO410ZuL3nCaDmFSo9hIgOcMxJtOc8ESza5.JPG</image:loc>
+      <image:title>Овощной винегрет</image:title>
+      <image:caption>В классический винегрет входят свёкла, морковь, картофель — отваренные и охлаждённые, солёные огурцы и квашеная капуста, лук репчатый или зелёный  — всё примерно в равных объёмах, и горошек!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/sloenyi_salat_s_kurinoi_pecheniu-5217</loc>
+    <lastmod>2025-11-04T21:05:52+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/e6XWw2TI6bdLscm8AkIWljwM3n9C5maEGkgiCKhX.jpg</image:loc>
+      <image:title>Слоеный салат с куриной печенью</image:title>
+      <image:caption>Очень вкусный и простой в приготовлении салат из доступных продуктов. Приготовить слоёный салат с куриной печенью можно на праздничный стол или к романтическому ужину.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/he_iz_ryby-6669</loc>
+    <lastmod>2025-11-04T21:05:49+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/ljkTFo7c6y5vCfgTJMRrqG035BtYqArpXibUMVbC.jpg</image:loc>
+      <image:title>Хе из рыбы</image:title>
+      <image:caption>Этот классический корейский рецепт нравится всем, кто хоть раз пробовал качественно приготовленный &amp;quot;Хе&amp;quot;. Подойдет любая некостлявая рыба. Я готовлю из форели.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_sloenyi_s_krevetkami-16944</loc>
+    <lastmod>2025-11-04T21:05:46+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/u6erso6P1g9n59vi02UkjL6lewiv2gDuip2bPUpI.jpg</image:loc>
+      <image:title>Салат слоеный с креветками</image:title>
+      <image:caption>Не знаете, каким салатом удивить своих гостей на праздник? Приготовьте им салат слоеный с креветками - такого они точно не пробовали. Помимо креветок, в этот слоеный салат идут картошка и яйца.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/krabovyi_salat_recept_klassicheskii-30199</loc>
+    <lastmod>2025-11-04T21:05:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/wTgSzC3yeukEbyYqkZjxsHRMcAkPVPClwByW2B7q.JPG</image:loc>
+      <image:title>Крабовый салат рецепт классический</image:title>
+      <image:caption>Существует масса вариантов приготовления салата из крабовых палочек. Данный рецепт салата является самым классическим и правильным, не пробовали? Обязательно приготовьте и наслаждайтесь!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-rulet_mimoza_na_novyi_god_2026-72198</loc>
+    <lastmod>2025-11-04T21:05:40+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/V6qGAlUa1KuWDSAJTQpAc5eYTVSuwDxuPqvygIMY.JPG</image:loc>
+      <image:title>Салат-рулет &quot;Мимоза&quot; на Новый год 2026</image:title>
+      <image:caption>Нежный, яркий и очень вкусный салат-рулет, который станет чудесным украшением Вашего новогоднего стола. Салат будем готовить по мотивам рецепта знаменитой &amp;quot;Мимозы&amp;quot;, с небольшими изменениями.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/olive_s_tuncom-72831</loc>
+    <lastmod>2025-11-04T21:05:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/aLHOzm9OHLxoInb8K8B9c0K7WjRmzzotiBDUTx33.JPG</image:loc>
+      <image:title>Оливье с тунцом</image:title>
+      <image:caption>Предлагаю приготовить оливье с тунцом. Немного необычный вариант на первый взгляд, но получается довольно вкусно и пикантно. В преддверие праздников оформим салат в виде рождественского венка.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_ananas_s_kuricei_i_syrom-73506</loc>
+    <lastmod>2025-11-04T21:05:34+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/KnXMGZqNrgyPz9PNeO2UEGYyh5nRDVupAlXZ0sCU.JPG</image:loc>
+      <image:title>Салат &quot;Ананас&quot; с курицей и сыром</image:title>
+      <image:caption>Вкусный салат в роскошной подаче, такое блюдо украсит любой стол. Подобным образом можно оформить любой салат. Я предлагаю приготовить салат &amp;quot;Ананас&amp;quot; с курицей и сыром.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/seledochnyi_chizkeik-68386</loc>
+    <lastmod>2025-11-04T21:05:31+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/q4HccqZJ6k6LM0WkUKhRaqyZBrzfYAusU3vGJqpl.JPG</image:loc>
+      <image:title>Селедочный чизкейк</image:title>
+      <image:caption>Такого вы точно еще не пробовали! Эта селедочка под шубой не только удивит ваших гостей, но и покорит всех нежным вкусом. Ничего сложного, самые обычные продукты, но какой результат, смотрите скорее!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/novyi_salat_s_krabovymi_palochkami-73245</loc>
+    <lastmod>2025-11-04T21:05:28+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/EOfsZJZ1QFKbNzqeDhGIek7HBBBg1wIMS6u1XvU5.jpg</image:loc>
+      <image:title>Новый салат с крабовыми палочками</image:title>
+      <image:caption>Всегда в праздники хочется угостить своих родных, друзей и близких чем-то очень вкусным и интересным. В этом салате необычное и очень изысканное сочетание ингредиентов. Попробуйте, вам понравится!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_parij-73708</loc>
+    <lastmod>2025-11-04T21:05:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/yO2YRjfCgQbmu3KNs750Q3MrhmMlOb0NKSSRV5ya.JPG</image:loc>
+      <image:title>Салат &quot;Париж&quot;</image:title>
+      <image:caption>Вкусный и сытный салат из серии &amp;quot;на скорую руку&amp;quot;. Можно приготовить салат &amp;quot;Париж&amp;quot; и для семейного ужина, и для любого праздничного стола.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_cezar_klassicheskii-302</loc>
+    <lastmod>2025-11-04T21:05:22+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/gFrniFaOeDvvwGvSW07id0W6VCz01Qnk0kRHXrr2.jpg</image:loc>
+      <image:title>Салат &quot;Цезарь&quot; классический</image:title>
+      <image:caption>Готовим многими любимый салат Цезарь по классическому рецепту - из свежих листьев салата, курицы-гриль, крутонов и пармезана, а также с фирменным соусом аля Цезарь. Объедение, а не салат.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_arbuznaya_dolka-9699</loc>
+    <lastmod>2025-11-04T21:05:19+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/20i4f8ah3z1aU4OJw88Wq0P2rSTsW2s9epwvc6GJ.jpg</image:loc>
+      <image:title>Салат Арбузная долька</image:title>
+      <image:caption>Салат Арбузная долька - свежая, не наскучившая идея красиво оформленного праздничного салата. Получается красиво, оригинально и вкусно. Простой рецепт салата Арбузная долька - вашему вниманию!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/grecheskii_salat_klassicheskii-822</loc>
+    <lastmod>2025-11-04T21:05:17+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/wtNRR9ev4gehxJTPizp8YVSpyvzxiYR0gK3touqy.JPG</image:loc>
+      <image:title>Греческий салат классический</image:title>
+      <image:caption>Греческий салат – отличный вариант простого и легкого овощного салата, который будет незаменимым и на праздничном, и на повседневном столе. Благодаря оливкам и сыру этот салат необычный и пикантный.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_shetka-9675</loc>
+    <lastmod>2025-11-04T21:05:14+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/KEhaaCCYBLlj7efZu5ZMLA4Z8IvBBDdmNtwl4PzA.JPG</image:loc>
+      <image:title>Салат &quot;Щетка&quot;</image:title>
+      <image:caption>Салат &amp;quot;Щетка&amp;quot; — эффективный, простой и вкусный способ избавиться от лишних килограммов. Салат актуален не только во время диеты, но и после долгих зимних праздников.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_carskii-72119</loc>
+    <lastmod>2025-11-04T21:05:11+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/JbCcdrzqlUjFcHRHDUrVSc3tYWGc1WPjIT4DkUZn.JPG</image:loc>
+      <image:title>Салат &quot;Царский&quot;</image:title>
+      <image:caption>Пришло время новогодних блюд, хочу порекомендовать вам салат &amp;quot;Царский&amp;quot;. Название не случайно, ведь в салате форель, икра красная - царское угощение! Смотрите рецепт!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_izumrudnaya_rossyp-51189</loc>
+    <lastmod>2025-11-04T21:05:08+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/vTrDIQWm3Rqi5mt0D3iqPFJObkJbLfNqKrrrPNCw.JPG</image:loc>
+      <image:title>Салат &quot;Изумрудная россыпь&quot;</image:title>
+      <image:caption>Этот салат сытный и вкусный, кусочки киви напоминают изумруды, благодаря этому салат по-настоящему праздничный и нарядный! Сочетание продуктов многим придется по вкусу, смотрите мой рецепт салата!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_gnezdo_gluharya-1311</loc>
+    <lastmod>2025-11-04T21:05:22+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/j6JrASX4bqtFfCQjQ8RPgD591kCnKtBEgFWLNb24.jpg</image:loc>
+      <image:title>Салат &quot;Гнездо глухаря&quot;</image:title>
+      <image:caption>Для приготовления салата &amp;quot;Гнездо глухаря&amp;quot; понадобится куриное филе, картофель, яйца и огурцы. Этот слоеный салат в виде гнезда будет отличным украшением праздничного стола. Популярная русска</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_tbilisi_s_fasoliu_i_govyadinoi-65787</loc>
+    <lastmod>2025-11-04T21:05:02+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/7oHtrCLcapSAiUwZnJ9blL7l6CUr41gMwMMxyV7V.jpg</image:loc>
+      <image:title>Салат &quot;Тбилиси&quot; с фасолью и говядиной</image:title>
+      <image:caption>Сытный белковый салат с овощами и мясом — отличный вариант для любого стола, поэтому расскажу, как приготовить салат &amp;quot;Тбилиси&amp;quot; с фасолью, говядиной, кинзой и орехами. Пальчики оближете!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_lesnaya_polyana-9673</loc>
+    <lastmod>2025-11-04T21:04:59+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/pYnpY6rSVSXnEgGqdBZo4J5hp4RWHIeWpALgYLiY.jpg</image:loc>
+      <image:title>Салат Лесная поляна</image:title>
+      <image:caption>Салат «Лесная Поляна» идеально подходит для праздничного застолья или семейного ужина! Блюдо яркое и аппетитное, а для его приготовления понадобятся самые доступные ингредиенты.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/krabovyi_salat_iz_krabovyh_palochek-823</loc>
+    <lastmod>2025-11-04T21:04:56+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/m1w7efsZHwRqsDM0d2isHM6bNOuC7NwLA6jBGpUd.JPG</image:loc>
+      <image:title>Крабовый салат из крабовых палочек</image:title>
+      <image:caption>Предлагаю вам классический рецепт приготовления салата из крабовых палочек с кукурузой и огурцом. Салат с крабовыми палочками будет отличным украшением праздничного стола по любому поводу!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/klassicheskii_vinegret-53113</loc>
+    <lastmod>2025-11-04T21:04:54+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/kZt1QtMmmPwWFcMVMPXx7SNVs1RzHfzao0U9Ma7m.JPG</image:loc>
+      <image:title>Классический винегрет</image:title>
+      <image:caption>Винегрет — классический овощной салат, рецепт которого передается из поколения в поколение. Рецепт салата включает в себя свеклу, картофель, морковь, капусту, зеленый горошек и свежий репчатый лук.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_sushi-73573</loc>
+    <lastmod>2025-11-04T21:04:51+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/HcvF8MJw8omptz47bKHN2H1iKRBulEC80a9o7g0u.JPG</image:loc>
+      <image:title>Салат &quot;Суши&quot;</image:title>
+      <image:caption>На скорую руку такой салат не приготовить, к тому же желательно выложив салат послойно, дать ему хотя бы пару часов настояться. Зато получится очень вкусное, изысканное и праздничное блюдо!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_zimnii-5275</loc>
+    <lastmod>2025-11-04T21:04:47+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/J7WuhDVcupF27NTcewtV57Nxgxluy6tyyUqG8PXE.jpg</image:loc>
+      <image:title>Салат &quot;Зимний&quot;</image:title>
+      <image:caption>Рецепт приготовления зимнего салата. Салат очень схож с салатом «Оливье», но имеет свои особенности и нюансы.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_olive_klassicheskii_s_kolbasoi-41597</loc>
+    <lastmod>2025-11-04T21:04:44+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/wjVSBbvSqzT1OKo5v0jo0IKJxPwY0z8agZznV9QB.JPG</image:loc>
+      <image:title>Салат &quot;Оливье&quot; классический с колбасой</image:title>
+      <image:caption>Ни одно праздничное застолье не обходится без разнообразных салатов. Самым популярным среди них был и есть салат &amp;quot;Оливье&amp;quot; в разных его вариациях. Сегодня предлагаю классический вариант этого</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_cezar_s_kuricei_i_suharikami-304</loc>
+    <lastmod>2025-11-04T21:04:41+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/fsfKVojIQoyhSbBSCXCi7hccAmqmhj3qul8E71xo.JPG</image:loc>
+      <image:title>Салат Цезарь с курицей и сухариками</image:title>
+      <image:caption>Предлагаю интересный вариант приготовления популярного ресторанного салата «Цезарь». Хоть и состоит салат из достаточно обычных продуктов, но всё же получается очень изысканным. Пробуем!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/morkov_po-koreiski_koreiskaya_morkovka-207</loc>
+    <lastmod>2025-11-04T21:04:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/3HJMmRHixmpZ22NcfNPa6Pg1lboPSgA3TWRX5ssg.JPG</image:loc>
+      <image:title>Морковь по-корейски (Корейская морковка)</image:title>
+      <image:caption>Популярный легкий салат Морковь по-корейски. Домашний рецепт приготовления пряной корейской морковки.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_podsolnuh-821</loc>
+    <lastmod>2025-11-04T21:04:34+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/ETQAeUQYlnADlUVVqPn9H4FbhxYSUTlKmq6vRHoz.jpg</image:loc>
+      <image:title>Салат Подсолнух</image:title>
+      <image:caption>Вкусный салат с куриным мясом, шампиньонами и маслинами, красиво оформленный в виде подсолнуха. Его можно подать к  новогоднему праздничному столу, на любое семейное торжество и просто в будний день.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_shuba_klassicheskii-55351</loc>
+    <lastmod>2025-11-04T21:04:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/DljidpPu7GCGaGBYzECkHhzZZSDyjaTyQKb9Hp5G.jpg</image:loc>
+      <image:title>Салат &quot;Шуба&quot; классический</image:title>
+      <image:caption>Есть рецепты салатов, которые считаются классическими для русской кухни. Их готовят на любые праздники в больших количествах, так как они до сих пор любимы и популярны. Делюсь одной из таких вариаций.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_gribnaya_polyana-1423</loc>
+    <lastmod>2025-11-04T21:04:15+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/5Y5zlduHNrw4ysUwZE2fAPPTmWixfrRsb4HS57RR.jpg</image:loc>
+      <image:title>Салат &quot;Грибная поляна&quot;</image:title>
+      <image:caption>Салат Грибная поляна - это очень вкусный и нарядный салатик к празднику. Салат выглядит настолько эффектно, что у ваших гостей останется только один выход - быть в восторге! Обязательно попробуйте!</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat_mimoza_klassicheskii-601</loc>
+    <lastmod>2025-11-04T21:01:12+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/4gNeXCCHj7tWw5Uv4Q2LWzwG2n3w9dGBvqjdK34t.jpg</image:loc>
+      <image:title>Салат &quot;Мимоза&quot; классический</image:title>
+      <image:caption>Всем знакомый салат, подходящий для праздничного стола по любому поводу. Салат Мимоза - классический рецепт салата лёгкий в приготовлении и невероятно нежный на вкус.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/klassicheskii-farshirovannyi-perec</loc>
+    <lastmod>2025-11-04T17:58:57+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/BuFvPmoLjYIAnw9NXbXrc52Ka91h5dndjXqeRljp.jpg</image:loc>
+      <image:title>Перец фаршированный мясом и рисом классический</image:title>
+      <image:caption>Яркий, ароматный, сытный, невероятно вкусный! Классический фаршированный мясом и рисом перец в кастрюле - аппетитное блюдо, которое появляется на столе у многих в летне-осенний сезон. Его достаточно л</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/medovji-tort-s-zavarnjm-kremom</loc>
+    <lastmod>2025-11-04T18:29:35+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/tgmv8X5gUQTRbVEqNjURiQ3UEncwadV7mQhd5kNe.jpg</image:loc>
+      <image:title>Торт медовик с заварным кремом</image:title>
+      <image:caption>Вкусный и нежный десерт для любого торжества! Торт медовик с заварным кремом поражает сбалансированным вкусом - не приторно сладкий, с тонким медовым ароматом. Заварной крем более устойчив, чем сметан</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/kurinye-kotlety-nejnye</loc>
+    <lastmod>2025-11-04T18:32:35+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/ZUdfKNVN0Soy0me6t7twdwoTK7DARnfNkHiIzu3T.jpg</image:loc>
+      <image:title>Куриные котлеты нежные</image:title>
+      <image:caption>Диетическое блюдо с хрустящей корочкой и сочной серединой! Куриные котлеты нежные - это диетическое блюдо с высоким содержанием белка и низкой калорийностью. Идеально подходит для здорового питания и </image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/plov-iz-svininy-v-kazane-na-kostre</loc>
+    <lastmod>2025-11-04T19:00:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/pSgJ78AaeOwo3kBDMTAmixAQ7LmqDYZgTcrqlxdx.jpg</image:loc>
+      <image:title>Плов из свинины в казане на костре</image:title>
+      <image:caption>Самый вкусный и яркий, с ароматом дымка - язык проглотишь! Плов из свинины в казане на костре можно сделать для пикника или посиделок на свежем воздухе с семьей и друзьями. Такой плов, приготовленный </image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/shokoladnyi-puding-molochnyi</loc>
+    <lastmod>2025-11-04T17:04:52+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/ABQkSZY0i0RKIVvklIW8U3RkloEi54wQ2xUb7cJE.jpg</image:loc>
+      <image:title>Шоколадный десерт пудинг без выпечки</image:title>
+      <image:caption>Нежный и божественно вкусный - удовольствие в каждой ложке! Шоколадный десерт пудинг без выпечки — спасение, когда хочется чего-то особенного без лишних хлопот. Его кремовая текстура и насыщенный вкус</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/shuba-bez-seledki</loc>
+    <lastmod>2025-11-04T19:02:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/15QpqjmvNnEguMYwoGSK4dTAlzJF2xEbNXP2qM8B.jpg</image:loc>
+      <image:title>Шуба без селедки</image:title>
+      <image:caption>Любимый салат в новом формате - станет хитом на вашем столе! Шуба без селедки — гениальное переосмысление классики. Она сохраняет все очарование слоеного салата со свеклой, но получается легче. Это не</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tykva-v-mikrovolnovke-v-domashnix-usloviyax</loc>
+    <lastmod>2025-11-04T19:03:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/CtOuzx89HT5klPKnuYOmUCChXES3yUZK5MAG32Rk.jpg</image:loc>
+      <image:title>Запеченная тыква в микроволновке кусочками с медом</image:title>
+      <image:caption>Такая яркая, полезная, ароматная. - яркий осенний десерт! Запеченная тыква в микроволновке кусочками с медом получается невероятно мягкой и нежной, а яблоки и корица превращают простой овощ в изысканн</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/aiva-zapechennaya</loc>
+    <lastmod>2025-11-04T19:05:08+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/SDHETIbcA9RFh3IT82XnPVkfiQc4wpj8Nkvbvdsa.jpg</image:loc>
+      <image:title>Запеченная айва с грецкими орехами</image:title>
+      <image:caption>Вкусный и полезный десерт – это гармония пользы и вкуса! Запеченную айву с грецкими орехами полюбят даже те, кто не любит её в сыром виде. Айвы становится нежной и сладкой, а грецкие орехи добавляют п</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-s-perlovkoi-na-zimu</loc>
+    <lastmod>2025-11-04T17:00:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/y5zpulzksVGi0uMYpUcBRxAlrlG3wShwXjkx4Fk1.jpg</image:loc>
+      <image:title>Салат на зиму с перловкой и овощами</image:title>
+      <image:caption>Очень вкусная и сытная заготовка без лишних хлопот! Салат на зиму с перловкой и овощами получается невероятно аппетитным. Его можно подать как самостоятельное блюдо, так и в качестве сытного дополнени</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/oreshki-so-sgushchenkoi-v-oreshnice-na-gazu</loc>
+    <lastmod>2025-11-04T17:00:42+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/4v81JOaqri5t7FJIGdZkKKjT6W1w2CWEadFOqUjR.jpg</image:loc>
+      <image:title>Орешки с вареной сгущенкой в орешнице на газу</image:title>
+      <image:caption>Классические, советские, простые, но очень вкусные! Такие орешки с вареной сгущенкой не нуждаются в представлении. С ними знаком чуть ли не каждый с детства. Моя форма-орешница старше меня, можно сказ</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-kurica-ananasy-syr-yaico</loc>
+    <lastmod>2025-11-04T17:00:39+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/da9grcCCy0TCQnZckTvkO9Hkl9x6ssb1Mk5NQCYZ.jpg</image:loc>
+      <image:title>Салат курица ананасы сыр яйцо</image:title>
+      <image:caption>На праздничный стол, безумно вкусный и оригинальный! Салат с курицей, ананасами, сыром и яйцом очень популярен и уже проверен временем. У него нежный и сбалансированный вкус. Если нет времени на выкла</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pshennaya-kasha-s-tykvoi-na-moloke</loc>
+    <lastmod>2025-11-04T17:00:36+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/NqrDztjLDkhuPXClZiFvS4C3dbSVS22IcyIliQgN.jpg</image:loc>
+      <image:title>Пшенная каша с тыквой на молоке</image:title>
+      <image:caption>Ароматная, очень вкусная и сытная. На завтрак или ужин. Пшенная каша с тыквой на молоке - блюдо многим знакомое с самого детства. С приготовлением этой каши справится даже начинающая хозяйка, а резуль</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-granatovji-braslet</loc>
+    <lastmod>2025-11-04T17:00:33+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/C3KouXoL0b3IDCxl9Eb1gyFcJ3mvk2fRjcuV6NRR.jpg</image:loc>
+      <image:title>Салат Гранатовый браслет с курицей классический</image:title>
+      <image:caption>Красота и отличный вкус салата покорят всех ваших гостей. Салат Гранатовый браслет с курицей классический украсит любой стол, даже станет главным блюдом на нем - настолько он красиво смотрится. И гото</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/kutya-na-rojdestvo</loc>
+    <lastmod>2025-11-04T16:31:58+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/6FNf1Tuscl8ask2KxAAvSEuiJuKYICh4pL8hEGvP.jpg</image:loc>
+      <image:title>Кутья на Рождество из пшеницы</image:title>
+      <image:caption>На праздник, традиционная, сладкая, очень вкусная! Рождественская кутья  — это густая каша из пшеницы с маком, изюмом и орехами. Она получается ароматной, питательной и полезной. С древних времён наши</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pitstsa-domashnyaya</loc>
+    <lastmod>2025-11-04T17:58:21+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/rX0L42fkqhnVhsFagXqnrA1PAhD5ImcSVaU7g87U.jpg</image:loc>
+      <image:title>Домашняя пицца в духовке с колбасой классическая</image:title>
+      <image:caption>Вкусная, воздушная, на тонком тесте - налетай! Вместо обычного бутерброда намного приятнее съесть кусочек классической домашней пиццы в духовке с колбасой.
+Ингредиенты для этой пиццы - самые распрост</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-ogurec-yaica-maionez-kukuruza</loc>
+    <lastmod>2025-11-04T17:19:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/sCQzYq93I2JcDOrXDUvsxc13za4Drs8bCFgBLEgD.jpg</image:loc>
+      <image:title>Салат огурец яйца майонез кукуруза</image:title>
+      <image:caption>Самый бюджетный, простой и быстрый, на скорую руку! Салат из огурца, яиц и кукурузы содержит минимум ингредиентов, но, тем не менее, получается вкусным и сытным. Он отлично подойдет для быстрого перек</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/rassolnik-s-perlovkoi-klassicheskii</loc>
+    <lastmod>2025-11-04T19:00:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/lBCA4G3DrlANr6928ULMQbjBSR7fgj3IMfnrgGZl.jpg</image:loc>
+      <image:title>Рассольник классический с перловкой и солеными огурцами</image:title>
+      <image:caption>Ароматный, сытный, вкусный - удовольствие в каждой ложке! Рассольник классический с перловкой и солеными огурцами - суп знакомый всем с детства. Это отличный вариант первого блюда для всей семьи на об</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tsukatj-iz-tjkvj</loc>
+    <lastmod>2025-11-04T16:31:45+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/XDoSPRy5GG1uy5qDVd0wHP1Hw2StcJFc2i6akg0O.jpg</image:loc>
+      <image:title>Цукаты из тыквы в духовке в домашних условиях</image:title>
+      <image:caption>Сладко, ярко, просто, вкусно, красиво и полезно! Что можно сделать из тыквы быстро и вкусно? Вот такие чудесные тыквенные цукаты в духовке. Большая часть времени приготовления уходит на их остывание в</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/julen-s-kuricei-i-gribami-v-duxovke</loc>
+    <lastmod>2025-11-04T16:31:41+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/lWVbdGBAuVAR8d9p1KoOlhhwPdsBSIclnc6WHibK.jpg</image:loc>
+      <image:title>Жульен с курицей и грибами в духовке</image:title>
+      <image:caption>От такого шикарного блюда никто не откажется! Среди множества различных вариантов жульен с курицей и грибами в духовке выделяется своей простотой и быстротой. Традиционный для жульена соус Бешамель зд</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/marinad-dlya-utki-pered-zapekaniem-v-duxovke</loc>
+    <lastmod>2025-11-04T16:31:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/jUyhfza05cG9PPwfKQA6P2FPK1LEMrRm1juKgCKe.jpg</image:loc>
+      <image:title>Маринад для утки перед запеканием в духовке</image:title>
+      <image:caption>Универсальный, пикантный, ароматный. Из минимума продуктов. Благодаря маринаду для утки перед запеканием в духовке мясо получается очень нежным и сочным, с хрустящей корочкой сверху. Такой маринад под</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/zapechyonnyi-ananas-s-syrom-v-duxovke-na-prazdnik</loc>
+    <lastmod>2025-11-04T16:31:34+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/YuHrSdIAGafIsDhwmC43JsiAqIlDcJqdIjPpcfGB.jpg</image:loc>
+      <image:title>Запечённый ананас с сыром в духовке на праздник</image:title>
+      <image:caption>Сладкий, пикантный, ароматный, бесподобно вкусный. Запечённый ананас с сыром в духовке станет украшением любого праздничного стола. Вкус ананаса практически как у свежего. Нежное и сочное мясо под апп</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-zmeika</loc>
+    <lastmod>2025-11-04T16:31:33+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/vq0xxxL306pYe2x84nAWUjSarT3wi6jTlWBKW5Kx.jpg</image:loc>
+      <image:title>Салат Змейка</image:title>
+      <image:caption>Тематическое оформление салата к Новому году и торжеству. Из этих ингредиентов часто готовят салат и на каждый день. Гармоничное сочетание курицы и ананаса предполагает различные дополнения, именно эт</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/toplenoe-maslo-iz-slivochnogo-v-domashnix-usloviyax</loc>
+    <lastmod>2025-11-04T16:31:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/qd15u2aLIinCUjDcYNpmB6dljcupFn57AjFdRD5e.jpg</image:loc>
+      <image:title>Топленое масло из сливочного в домашних условиях</image:title>
+      <image:caption>Полезное, натуральное, вкусное. Просто и доступно. Топленое масло из сливочного в домашних условиях получается красивого ярко-желтого цвета, а при застывании осветляется. Оно не горит при жарке, как о</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-tiffani-s-vinogradom-i-kuricei</loc>
+    <lastmod>2025-11-04T16:31:29+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/dp3KxuYW0VNWmQYnaRCHpWLqkfgLjUbOv3UuQTiA.jpg</image:loc>
+      <image:title>Салат Тиффани с виноградом и курицей</image:title>
+      <image:caption>Эффектный и потрясающе вкусный. Для любого праздника! Салат Тиффани с виноградом и курицей состоит из простых и привычных продуктов, однако его вкус и вид бесподобны. Существуют различные вариации это</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-kurica-s-chernoslivom-i-greckim-orexom</loc>
+    <lastmod>2025-11-04T16:31:26+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/XWrzkpJbh5q3XIz55JLxaxTrItYLnNDP2a9Q6Xyb.jpg</image:loc>
+      <image:title>Салат курица с черносливом и грецким орехом</image:title>
+      <image:caption>Оригинальный, аппетитный, очень вкусный, на праздник! Салат с курицей, черносливом и грецким орехом — рецепт слоеного салата, который красиво выглядит, сытный и обычно нравится всем гостям. Выложить с</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tartaletki-s-kuricei-i-gribami</loc>
+    <lastmod>2025-11-04T16:31:24+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/LhyQ2wdaQsezyN7Loc5iFi4YwGxQvddrebe0llp9.jpg</image:loc>
+      <image:title>Тарталетки с курицей грибами и сыром в духовке</image:title>
+      <image:caption>Сочная начинка и хрустящее тесто - феерия вкуса! Такие тарталетки с курицей грибами и сыром в духовке уместны для любого праздничного или фуршетного стола. Никого не оставляют равнодушными, съедаются </image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tartaletki-s-krevetkami-i-syrom</loc>
+    <lastmod>2025-11-04T16:31:23+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/8TKvaVsWfz6K56oV27aJDO0Q3unvJeehlFQS3ATB.jpg</image:loc>
+      <image:title>Тарталетки с креветками и сыром</image:title>
+      <image:caption>Удиви гостей такой простой, но вкусной закуской! Эти тарталетки с креветками получаются просто невероятными на вкус! Они хорошо смотрятся на праздничном столе, освежают и дополняют почти любое блюдо. </image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/myaso-po-francuzski-s-syrom-i-pomidorami-v-duxovke</loc>
+    <lastmod>2025-11-04T16:31:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/uco0MmXc9puA4t7mSU9rVkHfwBuPyzRvWaLTxAIg.jpg</image:loc>
+      <image:title>Мясо по французски с сыром и помидорами в духовке</image:title>
+      <image:caption>Сочное, ароматное, тающее во рту. Просто и быстро. Мясо по-французски с сыром и помидорами в духовке - это интересное и вкусное блюдо, которое можно сделать из самых простых продуктов. Подходит оно и </image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/solyanka-klassicheskaya-s-myasnym-naborom-i-maslinami-i-ogurcami</loc>
+    <lastmod>2025-11-04T16:31:18+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/N2l0pxgY5WdySwvhhL5JuUgioP1804UniyIEuA2T.jpg</image:loc>
+      <image:title>Солянка сборная мясная классическая</image:title>
+      <image:caption>Вкуснее, чем в ресторане! Легко, просто, ярко, красиво! Классическая сборная мясная солянка делается из нескольких видов мяса и оставляет незабываемые впечатления. Ее можно подать для воскресного обед</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/maionez-s-chesnokom</loc>
+    <lastmod>2025-11-04T16:31:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/Z7UgnyVlcOf9LJSDEBvGtbKgKLSNbXmaV9NFM8xO.jpg</image:loc>
+      <image:title>Соус майонез с чесноком</image:title>
+      <image:caption>Отличный аккомпанемент к любым блюдам - то, что вы искали! В составе домашнего соуса майонез с чесноком все только натуральное и полезное. Это продукты, которые всегда есть на любой кухне. Домашний ма</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/syrniki-klassicheskie-iz-tvoroga-na-skovorode</loc>
+    <lastmod>2025-11-04T17:58:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/i1AW5GI9YiET74ocNW25sWumrQmVsIOLi8pe1sPu.jpg</image:loc>
+      <image:title>Классические сырники из творога на сковороде</image:title>
+      <image:caption>Нежные, пышные, воздушные, на скорую руку. Классические сырники из творога с мукой на сковороде - это одно из самых популярных блюд из творога любимое многими. Полезные и вкусные, они отлично подходят</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pyshnaya-tvorojnaya-zapekanka-v-duxovke</loc>
+    <lastmod>2025-11-04T16:31:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/ek3Qr9yT1XTqTRqKTrsbzixEnMvKFScf89JPf3Nb.jpg</image:loc>
+      <image:title>Пышная творожная запеканка в духовке</image:title>
+      <image:caption>Легкая, воздушная, очень вкусная. Просто тает во рту! Пышная творожная запеканка в духовке - это блюдо, знакомое с детства. При соблюдении некоторых нюансов она всегда будет получаться вкусной и нежно</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/slabosolenaya-forel</loc>
+    <lastmod>2025-11-04T16:31:05+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/VkyOVhUwxgyk76J7BjTOdkcAHsvfxqgHRfu6JoBW.jpg</image:loc>
+      <image:title>Слабосоленая форель</image:title>
+      <image:caption>Яркая, аппетитная, очень вкусная. Просто тает во рту! Слабосоленая форель - это замечательная закуска и на праздничном столе, и для будничного приёма пищи. Нарезанная тонкими ломтиками, такая рыба при</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-s-kopchenoi-kurinoi-grudkoi-i-ananasami</loc>
+    <lastmod>2025-11-04T16:31:03+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/R3QK2uR7Wdt9x6gCtCucH2eb5TQdG987wjmE9UtO.jpg</image:loc>
+      <image:title>Салат с копченой курицей, ананасом, сыром и кукурузой</image:title>
+      <image:caption>Яркий, праздничный, вкусный, простой, на скорую руку! Салат с копченой курицей, ананасом, сыром и кукурузой очень сбалансирован по вкусу. Готовить его довольно быстро и просто. Такой салат отлично под</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pasta-karbonara-s-bekonom-i-slivkami</loc>
+    <lastmod>2025-11-04T16:31:01+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/SJWNKHKhzHuELCcjXuaLwdJFeGOBT4JwoRA5Gqdp.jpg</image:loc>
+      <image:title>Паста карбонара с беконом и сливками классическая</image:title>
+      <image:caption>Гордость итальянской кухни в вашей тарелке. Легко и просто! Классическая паста карбонара с беконом в сливочном соусе  настолько универсальна, что подходит под любые случаи. Особенно порадует она тороп</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/grecheskoe-testo-kataifi</loc>
+    <lastmod>2025-11-04T16:30:58+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/gTvbChJUkYobapbh9mkpbmFlLlh2UPHUEbuTElPD.jpg</image:loc>
+      <image:title>Греческое тесто катаифи</image:title>
+      <image:caption>Красивое, оригинальное, из обычных продуктов! Греческое тесто катаифи похоже на тончайшие ниточки, оно идеально для приготовления различных восточных сладостей и выпечки. Процесс формирования теста ин</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/utka-po-pekinski</loc>
+    <lastmod>2025-11-04T16:30:54+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/AOdsbkHvSzAlvERDP0pbFlCtdp5o5PlvKtpqsoAK.jpg</image:loc>
+      <image:title>Утка по пекински</image:title>
+      <image:caption>Нежное ароматное мясо под румяной корочкой - тает во рту! Утка по-пекински - всемирно известное китайское блюдо. Особую роль здесь играют специи и несколько этапов подготовки птицы к запеканию. Благод</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tvorojnoe-pechene-v-duxovke</loc>
+    <lastmod>2025-11-04T16:30:51+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/Jukuwb4iHrU3H7qyLm5OWLT4V48Ij0rNsi621ZF8.jpg</image:loc>
+      <image:title>Творожное печенье в духовке</image:title>
+      <image:caption>Мягкое, рассыпчатое и ароматное! К любым напиткам! Творожное печенье в духовке - простая, бюджетная и очень вкусная выпечка, с которой справится даже подросток. Благодаря тому, что сахар не вмешиваетс</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/klassicheskii-zavarnoi-krem</loc>
+    <lastmod>2025-11-04T17:58:20+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/me4upvTtoensuIaMCqEw9PuNXX2yljYrdFRUcb4Q.jpg</image:loc>
+      <image:title>Заварной крем классический</image:title>
+      <image:caption>Нежный десерт и прекрасное дополнение для любой выпечки! Это классическая версия заварного крема. Сделать его не составит особого труда, да и продукты для готовки найдутся в любом холодильнике. Этим к</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/calat-koreiskaya-morkov-kurica</loc>
+    <lastmod>2025-11-04T17:58:31+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/xdJJ876pDl42rGcRT9vHcXudIrxLx6n6NHF0mpV5.jpg</image:loc>
+      <image:title>Cалат корейская морковь курица</image:title>
+      <image:caption>Вкусный, быстрый и простой, для любого праздника! В салате с корейской морковью и курицей  используется минимум ингредиентов, но они очень удачно гармонируют друг с другом во вкусе. Приготовления зани</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/steik-ribai-na-skovorode</loc>
+    <lastmod>2025-11-04T16:30:42+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/8JzJgM6UWxxX5ulafYQSOgBJLKDkZUFvYbJbhhTk.jpg</image:loc>
+      <image:title>Стейк рибай на сковороде</image:title>
+      <image:caption>Изумительно вкусный - ресторанное блюдо на вашем столе! Последние годы особую популярность приобрело сочное мясо разной степени прожарки с минимумом специй. Пожарить стейк рибай на сковороде дома не с</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/farsh-s-syrom-vkusno-i-prosto</loc>
+    <lastmod>2025-11-04T16:30:39+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/XkhnoH6FPWXDxXQQvTYwLgCbOzqQwprgFTUJogEz.jpg</image:loc>
+      <image:title>Фарш с сыром вкусно и просто</image:title>
+      <image:caption>Сочный, аппетитный и натуральный! На любой случай! Фарш с сыром вкусно и просто может стать основой для разных блюд, начиная от привычных котлет, заканчивая домашними бургерами. У готового блюда запом</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/kotlety-iz-farsha-klassicheskie-na-skovorode</loc>
+    <lastmod>2025-11-04T16:30:36+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/E0dW40w28WQZs6pH8lIKGxQRX7KTKS0yc69J3uAI.jpg</image:loc>
+      <image:title>Сочные котлеты из фарша классические на сковороде</image:title>
+      <image:caption>Вкусные, сытные, мягкие, на каждый день. Румяные и нежные, классические сочные котлеты из фарша на сковороде отлично подойдут на обед или ужин. Получаются они плотные и не разваливаются при жарке. Под</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-s-kopchenoi-grudkoi-i-koreiskoi-morkovu</loc>
+    <lastmod>2025-11-04T16:30:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/Lmwh9KK2znAU4uhQ0g2VWPhIYsdfHSruN7BxynoP.jpg</image:loc>
+      <image:title>Салат с копченой грудкой и корейской морковью</image:title>
+      <image:caption>Гармония вкуса и цвета - сделай себе яркий праздник! Салат с копченой куриной грудкой и корейской морковью полюбился мне за то, что готовится быстро и просто, а выглядит эффектно. Повседневный вариант</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/pyshnye-syrniki-iz-tvoroga-na-skovorode</loc>
+    <lastmod>2025-11-04T16:30:31+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/O75MAkX2L6IiCiCrzYLnN6dFWK5VCZt93YNTxi10.jpg</image:loc>
+      <image:title>Пышные сырники из творога с мукой на сковороде</image:title>
+      <image:caption>Пышные и воздушные, для всей семьи, на завтрак! Пышные сырники из творога с мукой на сковороде - это прекрасный вариант для вкусного и сытного утреннего блюда или полдника. Подавайте их со сметаной, с</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/tartaletki-s-tvorojnym-syrom-i-krasnoi-ryboi</loc>
+    <lastmod>2025-11-04T16:30:28+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/pP9AoHQ7cEFDhj5frRVEVUWc6379Q1r1a1A7jPAq.jpg</image:loc>
+      <image:title>Тарталетки с творожным сыром и красной рыбой</image:title>
+      <image:caption>На скорую руку, бесподобно вкусно, легко, на праздник! Тарталетки с творожным сыром и красной рыбой вы приготовите за 5 минут. На праздничном столе они будут смотреться очень эффектно. Вместо тарталет</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/rojdestvenskii-gus-s-yablokami-v-duxovke</loc>
+    <lastmod>2025-11-04T16:30:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/fDi9oLCMKSxsXjTvSNJLH6ftziMc9lppPiJVeMMx.jpg</image:loc>
+      <image:title>Гусь с яблоками в духовке целиком с хрустящей корочкой</image:title>
+      <image:caption>Праздничный, вкусный, мягкий, но с хрустящей корочкой! Фаршированный яблоками гусь в духовке целиком - это рождественское блюдо, соберет за столом всю семью и наполнит дом восхитительным ароматом! Гус</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/krevetki-na-skovorode-s-chesnokom</loc>
+    <lastmod>2025-11-04T16:30:23+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/VIahJd3URJl1F8kfZFwia7SdnPosqE1lkSG7wIb3.jpg</image:loc>
+      <image:title>Жаренные креветки с чесноком на сковороде</image:title>
+      <image:caption>Такие вкусные и ароматные, что рука так и тянется к ним! Жаренные креветки с чесноком на сковороде несомненно понравятся всем любителям морепродуктов! Креветки получаются нежными, сочными и невероятно</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/salat-zimnii-klassicheskii-s-kolbasoi</loc>
+    <lastmod>2025-11-04T17:58:31+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/52k6qnvrba8BX9y2V8nAmwPRUzih7SFE2wjyJ213.jpg</image:loc>
+      <image:title>Салат зимний классический с колбасой</image:title>
+      <image:caption>Популярный, любимый - ни одного праздника без него! Салат зимний классический с колбасой – один из самых известных в советские времена. Этот салат и сейчас востребован многими хозяйками. Невероятно вк</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/prostaya-sharlotka</loc>
+    <lastmod>2025-11-04T19:00:32+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/Q5FM6IK5frW9KZHbjS4NFJsSX8EoRsJppsFdnh0g.jpg</image:loc>
+      <image:title>Простая шарлотка с яблоками в духовке пышная</image:title>
+      <image:caption>Воздушный десерт - вкус детства и аромат домашнего уюта! Простая шарлотка с яблоками пышная понравится вам с первого раза. Это не только вкусный, но и полезный десерт. Отличный вариант полдника или ле</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://im-edok/recipe/zharenaya-morkov-s-lukom</loc>
+    <lastmod>2025-11-04T16:30:17+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://im-edok/storage/recipes/4NyuhOCLlndINMAw5XhzKE4rUlhlT2Su0FnQZA6T.jpg</image:loc>
       <image:title>Жареная морковь с луком на сковороде</image:title>
       <image:caption>Яркая, полезная, сочная. Просто и быстро. Жареная морковь с луком на сковороде хороша своей универсальностью. Её можно подавать как самостоятельное блюдо, добавлять в супы или использовать в качестве </image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://im-edok/recipe/pechen-s-lukom-na-skovorode</loc>
-    <lastmod>2025-11-04T18:11:40+00:00</lastmod>
+    <lastmod>2025-11-04T16:30:15+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://im-edok/storage/recipes/Gu67I7gzJRV6JMwAS6aX7ylKiPfGJBCeif3LHVER.jpg</image:loc>
+      <image:loc>https://im-edok/storage/recipes/7RTmjRRJLe8AcH2pXD0S9fGcCnXMMBWeASO2m1B3.jpg</image:loc>
       <image:title>Печень с луком на сковороде</image:title>
       <image:caption>Просто, быстро и очень вкусно! На каждый день! Печень с луком на сковороде получается мягкая и нежная. Делается она буквально за 25 минут. Ее можно легко дополнить разными гарнирами, например, макарон</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://im-edok/recipe/xrustyashchaya-kvashennaya-kapusta-v-banke-na-zimu</loc>
-    <lastmod>2025-11-04T18:11:38+00:00</lastmod>
+    <lastmod>2025-11-04T16:30:13+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://im-edok/storage/recipes/GXGdcPKKlnc0uPAgiRceZLXNWZRoSqUvoZHw2AQc.jpg</image:loc>
+      <image:loc>https://im-edok/storage/recipes/ggdhNXcKugn8MhjTECXzDXIP8eHEIgA9yCptpBAB.jpg</image:loc>
       <image:title>Хрустящая квашенная капуста в банке на зиму</image:title>
       <image:caption>Сочная, и аппетитная - чудо-закуска на все случаи жизни! Хрустящую квашенную капусту в банке на зиму сделать несложно, а получается очень вкусно. Потребуется некоторое время и внимание к самой капусте</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://im-edok/recipe/lavash-na-skovorode-s-syrom</loc>
-    <lastmod>2025-11-04T18:11:35+00:00</lastmod>
+    <lastmod>2025-11-04T16:30:11+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://im-edok/storage/recipes/e28RvTTuoikC5w0m0OdLchcAjRFXt3StYdU6LdVB.jpg</image:loc>
+      <image:loc>https://im-edok/storage/recipes/V2ORRAANMmCseHnrzkwCqLzCAleZn6Rprux5yQGS.jpg</image:loc>
       <image:title>Лаваш на сковороде с сыром</image:title>
       <image:caption>Нежные, аппетитные, на скорую руку. Когда гости на пороге. Лаваш на сковороде с сыром подойдет не только в качестве сытного перекуса, но и выручит в случае неожиданных гостей. Бесподобный вкус в сочет</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://im-edok/recipe/kvashenaya-kapusta-klassicheskaya-v-banke</loc>
-    <lastmod>2025-11-04T18:11:32+00:00</lastmod>
+    <lastmod>2025-11-04T16:30:07+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://im-edok/storage/recipes/e60ijaSZ7zuW4LWGegdU673bAnHG5qUujdgF2slp.jpg</image:loc>
+      <image:loc>https://im-edok/storage/recipes/ivFgosHyf0jMh64emoCoV6eXeNp3znDbSJJU4g7C.jpg</image:loc>
       <image:title>Квашеная капуста классическая в банке</image:title>
       <image:caption>Вкусная, полезная, всего из трёх ингредиентов. Такой способ квашения капусты не предполагает использования рассола, достаточно только сока из овощей. Квашеная капуста классическая в банке получается о</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://im-edok/recipe/ris-na-skovorode</loc>
-    <lastmod>2025-11-04T14:47:34+00:00</lastmod>
+    <lastmod>2025-11-04T19:00:15+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -68,7 +1169,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/krabovyi-salat-klassicheskii-bez-risa</loc>
-    <lastmod>2025-11-04T13:55:33+00:00</lastmod>
+    <lastmod>2025-11-04T16:50:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -79,7 +1180,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/xolodec-klassicheskii</loc>
-    <lastmod>2025-11-04T13:55:29+00:00</lastmod>
+    <lastmod>2025-11-04T17:58:20+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -101,7 +1202,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/kak-posolit-forel-v-domashnix-usloviyax</loc>
-    <lastmod>2025-11-04T13:55:22+00:00</lastmod>
+    <lastmod>2025-11-04T16:44:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -112,7 +1213,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/salat-olive-s-molochnoi-kolbasoi</loc>
-    <lastmod>2025-11-04T13:55:19+00:00</lastmod>
+    <lastmod>2025-11-04T19:00:32+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -123,7 +1224,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/salat-kurica-s-ananasami-syrom-i-chesnokom</loc>
-    <lastmod>2025-11-04T13:55:17+00:00</lastmod>
+    <lastmod>2025-11-04T17:58:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -145,7 +1246,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/bento-tort-koreiskii</loc>
-    <lastmod>2025-11-04T13:55:11+00:00</lastmod>
+    <lastmod>2025-11-04T16:53:21+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -167,7 +1268,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/nutella-bez-orexov-domashnyaya-s-kakao</loc>
-    <lastmod>2025-11-04T13:05:03+00:00</lastmod>
+    <lastmod>2025-11-04T16:47:01+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -178,7 +1279,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/ovsyanje-oladi-dietichnje</loc>
-    <lastmod>2025-11-04T13:18:32+00:00</lastmod>
+    <lastmod>2025-11-04T19:00:31+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -255,7 +1356,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/gulyash-s-chernoslivom-iz-govyadiny</loc>
-    <lastmod>2025-11-04T12:41:29+00:00</lastmod>
+    <lastmod>2025-11-04T19:00:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -321,7 +1422,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/salat-iz-svejei-svekly-i-morkovi</loc>
-    <lastmod>2025-11-04T12:41:10+00:00</lastmod>
+    <lastmod>2025-11-04T17:58:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -651,7 +1752,7 @@
   </url>
   <url>
     <loc>https://im-edok/recipe/baklajany-po-koreiski-bystrogo-prigotovleniya</loc>
-    <lastmod>2025-11-04T12:39:45+00:00</lastmod>
+    <lastmod>2025-11-04T17:58:31+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
