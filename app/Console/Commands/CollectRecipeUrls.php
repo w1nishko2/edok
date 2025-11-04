@@ -4,19 +4,25 @@ namespace App\Console\Commands;
 
 use App\Models\RecipeQueue;
 use App\Services\RecipeListParserService;
+use App\Services\InfiniteScrollBrowserParserService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
 class CollectRecipeUrls extends Command
 {
     protected $signature = 'recipes:collect-urls 
-                            {--count=100 : Количество URL для сбора}';
+                            {--count=100 : Количество URL для сбора}
+                            {--use-browser : Использовать headless браузер для infinite scroll}';
 
     protected $description = 'Сбор URL рецептов и добавление в очередь (легкая задача, каждые 15 мин)';
 
-    public function handle(RecipeListParserService $parser): int
+    public function handle(
+        RecipeListParserService $parser,
+        InfiniteScrollBrowserParserService $browserParser
+    ): int
     {
         $targetCount = (int) $this->option('count');
+        $useBrowser = $this->option('use-browser');
 
         $this->info("╔════════════════════════════════════════════════════════╗");
         $this->info("║   📥 Сбор URL рецептов в очередь                     ║");
@@ -24,10 +30,16 @@ class CollectRecipeUrls extends Command
         $this->newLine();
 
         $this->info("🎯 Цель: {$targetCount} новых URL");
+        $this->info("🔧 Метод: " . ($useBrowser ? "Headless Browser (infinite scroll)" : "Обычный парсинг"));
         $this->newLine();
 
         // Собираем URL
-        $urls = $parser->parseMultiplePages($targetCount);
+        if ($useBrowser) {
+            $this->info("🌐 Запуск headless браузера...");
+            $urls = $browserParser->collectNewRecipes($targetCount);
+        } else {
+            $urls = $parser->parseMultiplePages($targetCount);
+        }
 
         if (empty($urls)) {
             $this->warn("⚠️ Не найдено новых рецептов для добавления в очередь");

@@ -32,7 +32,7 @@ class RecipeListParserService
 
     /**
      * Получить список URL рецептов с одной конкретной страницы
-     * Использует разные разделы сайта для получения большего разнообразия
+     * Парсит только раздел /cooking/all-new (самые новые рецепты)
      *
      * @param int $page Номер страницы
      * @return array Массив URL рецептов
@@ -40,26 +40,16 @@ class RecipeListParserService
     public function parseRecipesList(int $page = 1): array
     {
         try {
-            // Разные разделы сайта для парсинга
-            $sections = [
-                '/cooking',           // Все рецепты
-                '/cooking/new',       // Новые рецепты
-                '/cooking/popular',   // Популярные
-                '/catalog',           // Каталог
-            ];
-            
-            // Циклически выбираем раздел
-            $sectionIndex = ($page - 1) % count($sections);
-            $section = $sections[$sectionIndex];
-            $actualPage = (int)ceil($page / count($sections));
+            // Парсим только раздел с новыми рецептами
+            $section = '/cooking/all-new';
             
             // Формируем URL
             $pageUrl = $this->baseUrl . $section;
-            if ($actualPage > 1) {
-                $pageUrl .= '?page=' . $actualPage;
+            if ($page > 1) {
+                $pageUrl .= '?page=' . $page;
             }
 
-            Log::info("🔍 Парсинг страницы {$page} (раздел: {$section}, стр.{$actualPage}): {$pageUrl}");
+            Log::info("🔍 Парсинг страницы {$page}: {$pageUrl}");
 
             $recipes = $this->fetchRecipesFromUrl($pageUrl);
             

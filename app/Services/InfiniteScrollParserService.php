@@ -11,7 +11,7 @@ class InfiniteScrollParserService
 {
     protected Client $client;
     protected string $baseUrl = 'https://1000.menu';
-    protected string $targetUrl = 'https://1000.menu/cooking/all-new';
+    protected string $targetUrl = 'https://1000.menu/cooking/all-new'; // Только эта страница!
     protected RecipeParserService $recipeParser;
     protected int $batchSize = 5; // Количество рецептов для парсинга перед записью в БД
     
