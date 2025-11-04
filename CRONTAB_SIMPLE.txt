@@ -4,14 +4,14 @@
 # Скопируйте 2 строки ниже в ваш crontab (команда: crontab -e)
 # =====================================================================
 
-# Бесконечный сбор новых рецептов (проверяет каждые 5 минут, запускает если не работает)
-*/5 * * * * cd /home/g/gamechann2/im-edok_ru && pgrep -f "recipes:collect-infinite" || /usr/bin/php8.1 artisan recipes:collect-infinite --delay=300 --batch=20 >> /home/g/gamechann2/im-edok_ru/storage/logs/infinite-collector.log 2>&1 &
+# Бесконечный сбор рецептов - по 1 странице каждую минуту из всех категорий (проверка каждые 2 минуты)
+*/2 * * * * cd /home/g/gamechann2/im-edok_ru && pgrep -f "recipes:collect-infinite" || /usr/bin/php8.1 artisan recipes:collect-infinite --delay=60 >> /home/g/gamechann2/im-edok_ru/storage/logs/infinite-collector.log 2>&1 &
 
 # Обработка очереди - создание 50 карточек каждые 30 минут
 */30 * * * * cd /home/g/gamechann2/im-edok_ru && /usr/bin/php8.1 artisan recipes:process-queue --limit=50 >> /home/g/gamechann2/im-edok_ru/storage/logs/queue-processor.log 2>&1
 
 # =====================================================================
 # ГОТОВО! Эти 2 строки обеспечат:
-# - Постоянный сбор новых рецептов со всех 8 категорий
+# - По 1 странице каждую минуту из категорий: meat, fish, ptica, vegies, salad, soup, vypechka, dessert
 # - Автоматическое создание 50 карточек каждые 30 минут
 # =====================================================================

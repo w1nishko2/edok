@@ -20,7 +20,6 @@ class InfiniteCollectRecipes extends Command
     public function handle(RecipeListParserService $parser): int
     {
         $delay = (int) $this->option('delay');
-        $batchSize = (int) $this->option('batch');
         
         $categories = array_keys($parser->getCategories());
         
@@ -34,17 +33,15 @@ class InfiniteCollectRecipes extends Command
         $this->info("╚════════════════════════════════════════════════════════╝");
         $this->newLine();
         $this->info("⚙️  Категорий: " . count($categories));
-        $this->info("⚙️  Рецептов за цикл: {$batchSize}");
-        $this->info("⚙️  Задержка между циклами: {$delay} сек");
+        $this->info("⚙️  По 1 странице каждые {$delay} секунд");
         $this->info("⚙️  Для остановки нажмите Ctrl+C");
         $this->newLine();
-        $this->info("Категории: " . implode(', ', $categories));
+        $this->info("📋 Категории: " . implode(', ', $categories));
         $this->newLine(2);
 
         Log::info("🚀 Запущен бесконечный сбор рецептов", [
             'categories' => count($categories),
-            'batch_size' => $batchSize,
-            'delay' => $delay
+            'delay_seconds' => $delay
         ]);
 
         $cycle = 0;
@@ -58,7 +55,7 @@ class InfiniteCollectRecipes extends Command
             $currentPage = $this->categoryPages[$category];
             
             $this->info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-            $this->info("🔄 Цикл #{$cycle} | Категория: {$category} | Страница: {$currentPage}");
+            $this->info("🔄 Цикл #{$cycle} | 📂 {$category} | 📄 Стр.{$currentPage}");
             $this->info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
             
             try {
@@ -73,7 +70,7 @@ class InfiniteCollectRecipes extends Command
                     // Переходим к следующей категории
                     $this->currentCategoryIndex = ($this->currentCategoryIndex + 1) % count($categories);
                     
-                    sleep(rand(3, 5));
+                    sleep(3);
                     continue;
                 }
 
@@ -88,7 +85,7 @@ class InfiniteCollectRecipes extends Command
                 }
 
                 if (empty($newUrls)) {
-                    $this->info("⏭️  Все рецепты уже в базе, переходим на следующую страницу");
+                    $this->info("⏭️  Все рецепты уже в базе, следующая страница");
                     $this->categoryPages[$category]++;
                 } else {
                     $this->info("✨ Новых рецептов: " . count($newUrls));
@@ -107,54 +104,40 @@ class InfiniteCollectRecipes extends Command
                         }
                     }
 
-                    $this->info("✅ Добавлено в очередь: {$added}");
+                    $this->info("✅ Добавлено: {$added}");
                     
                     // Переходим на следующую страницу
                     $this->categoryPages[$category]++;
                 }
 
-                // Статистика
+                // Статистика очереди
                 $pending = RecipeQueue::where('status', RecipeQueue::STATUS_PENDING)->count();
-                $processing = RecipeQueue::where('status', RecipeQueue::STATUS_PROCESSING)->count();
                 $completed = RecipeQueue::where('status', RecipeQueue::STATUS_COMPLETED)->count();
                 
-                $this->newLine();
-                $this->info("📊 Статистика очереди:");
-                $this->info("   ⏳ Ожидают: {$pending}");
-                $this->info("   ⚙️  В работе: {$processing}");
-                $this->info("   ✅ Обработано: {$completed}");
+                $this->info("📊 Очередь: ⏳ {$pending} ожидают | ✅ {$completed} готово");
 
                 // Переходим к следующей категории
                 $this->currentCategoryIndex = ($this->currentCategoryIndex + 1) % count($categories);
                 
-                // Если прошли все категории, делаем паузу
-                if ($this->currentCategoryIndex === 0) {
-                    $elapsed = round(microtime(true) - $startTime, 2);
-                    $this->newLine();
-                    $this->info("⏱️  Время цикла: {$elapsed} сек");
-                    $this->info("⏸️  Пауза {$delay} секунд перед следующим циклом...");
-                    $this->newLine(2);
-                    
-                    sleep($delay);
-                } else {
-                    // Между категориями короткая пауза
-                    sleep(rand(2, 4));
-                }
+                $elapsed = round(microtime(true) - $startTime, 2);
+                $this->info("⏱️  {$elapsed} сек | ⏸️  Пауза {$delay} сек...");
+                $this->newLine();
+                
+                sleep($delay);
 
             } catch (\Exception $e) {
-                $this->error("❌ Ошибка в цикле #{$cycle}: " . $e->getMessage());
+                $this->error("❌ Ошибка: " . $e->getMessage());
                 Log::error("Ошибка в бесконечном парсере", [
                     'cycle' => $cycle,
                     'category' => $category,
                     'page' => $currentPage,
-                    'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString()
+                    'error' => $e->getMessage()
                 ]);
                 
-                // При ошибке тоже переходим к следующей категории
+                // При ошибке переходим к следующей категории
                 $this->currentCategoryIndex = ($this->currentCategoryIndex + 1) % count($categories);
                 
-                sleep(10); // Пауза после ошибки
+                sleep(10);
             }
         }
 
