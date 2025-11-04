@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://im-edok/sitemap-static.xml</loc>
+    <lastmod>2025-11-04T18:11:43+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://im-edok/sitemap-categories.xml</loc>
+    <lastmod>2025-11-04T18:11:43+00:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://im-edok/sitemap-recipes.xml</loc>
+    <lastmod>2025-11-04T18:11:43+00:00</lastmod>
+  </sitemap>
+</sitemapindex>

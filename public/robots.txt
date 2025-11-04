@@ -1,0 +1,153 @@
+# Robots.txt для im-edok.ru
+# Обновлено для 2025 года с поддержкой AI-ботов
+
+# ============================================
+# Основные поисковые системы
+# ============================================
+
+# Google (все продукты)
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /storage/temp/
+
+User-agent: Googlebot-Image
+Allow: /storage/
+Disallow: /storage/temp/
+
+# Яндекс
+User-agent: Yandex
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Crawl-delay: 1
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&fbclid&gclid
+
+# Bing
+User-agent: bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+
+# Mail.ru
+User-agent: Mail.RU_Bot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 2
+
+# ============================================
+# AI-боты и языковые модели (2025)
+# ============================================
+
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+Allow: /recipe/
+Allow: /categories/
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+
+# Anthropic (Claude)
+User-agent: Claude-Web
+Allow: /recipe/
+Allow: /categories/
+Disallow: /admin/
+
+# Google Bard/Gemini
+User-agent: Google-Extended
+Allow: /recipe/
+Allow: /categories/
+Disallow: /admin/
+
+# Common Crawl (для AI обучения)
+User-agent: CCBot
+Allow: /recipe/
+Allow: /categories/
+Disallow: /admin/
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /recipe/
+Allow: /categories/
+
+# ============================================
+# Социальные сети (для превью)
+# ============================================
+
+# Facebook
+User-agent: facebookexternalhit
+Allow: /
+Disallow: /admin/
+
+# VK (ВКонтакте)
+User-agent: vkShare
+Allow: /
+Disallow: /admin/
+
+# Telegram
+User-agent: TelegramBot
+Allow: /
+Disallow: /admin/
+
+# WhatsApp
+User-agent: WhatsApp
+Allow: /
+Disallow: /admin/
+
+# ============================================
+# Блокировка вредоносных ботов
+# ============================================
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# ============================================
+# Общие правила для остальных
+# ============================================
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /storage/temp/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?page=
+Disallow: /*?sort=
+Crawl-delay: 1
+
+# ============================================
+# Sitemap
+# ============================================
+
+Sitemap: https://im-edok.ru/sitemap.xml
+Sitemap: https://im-edok.ru/sitemap-recipes.xml
+Sitemap: https://im-edok.ru/sitemap-categories.xml
+
+# ============================================
+# Дополнительная информация
+# ============================================
+
+# Host (для Яндекса)
+Host: https://im-edok.ru
+

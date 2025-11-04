@@ -1,0 +1,14 @@
+# ads.txt файл для im-edok.ru
+# Обновлено: 4 ноября 2025 года
+# Формат: <домен>, <ID издателя>, <тип отношений>, <ID сертификации>
+
+# Google AdSense
+# google.com, pub-XXXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+
+# Yandex Advertising Network
+# yandex.com, XXXXXX, DIRECT
+
+# VK Advertising
+# vk.com, XXXXXX, DIRECT
+
+# Uncomment and add your publisher IDs when ready

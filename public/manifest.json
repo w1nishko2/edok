@@ -1,0 +1,90 @@
+{
+  "name": "Яедок - Рецепты с фото пошагово",
+  "short_name": "Яедок",
+  "description": "Лучшие рецепты с пошаговыми фото и подробными инструкциями. Более 1000 проверенных рецептов различных кухонь мира",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#ffffff",
+  "theme_color": "#ff6b6b",
+  "orientation": "portrait-primary",
+  "lang": "ru",
+  "dir": "ltr",
+  "categories": ["food", "lifestyle", "cooking"],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Главная страница с рецептами"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Поиск рецептов",
+      "short_name": "Поиск",
+      "description": "Быстрый поиск по рецептам",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Категории",
+      "short_name": "Категории",
+      "description": "Все категории рецептов",
+      "url": "/categories",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

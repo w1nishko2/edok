@@ -1,0 +1,320 @@
+/* ====================================
+   Навигация - Адаптивные стили
+   ==================================== */
+
+/* Основные стили navbar */
+.navbar {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-bottom: 2px solid #ff6b6b;
+    padding: 0.75rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ff6b6b !important;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand:hover {
+    color: #ff5252 !important;
+    transform: scale(1.05);
+}
+
+/* Навигационные ссылки */
+.nav-link {
+    font-weight: 500;
+    color: #333 !important;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link:hover {
+    color: #ff6b6b !important;
+    background-color: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+/* Toggler для мобильных */
+.navbar-toggler {
+    border: 2px solid #ff6b6b;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 107, 107, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ====================================
+   Мобильные стили (до 768px)
+   ==================================== */
+
+@media (max-width: 767.98px) {
+    /* Navbar container */
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .navbar > .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Brand */
+    .navbar-brand {
+        font-size: 1.3rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    /* Collapsed menu */
+    .navbar-collapse {
+        background-color: #fff;
+        border-top: 2px solid #ff6b6b;
+        margin-top: 0.75rem;
+        padding-top: 1rem;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Навигационные элементы в мобильном меню */
+    .navbar-nav {
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        padding: 0.75rem 1rem !important;
+        border-radius: 8px;
+        margin: 0 0.5rem;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link:active {
+        background-color: #ff6b6b;
+        color: #fff !important;
+        transform: translateX(5px);
+    }
+
+    .nav-link i {
+        width: 24px;
+        text-align: center;
+    }
+
+    /* Login/Register кнопки */
+    .navbar-nav.ms-auto {
+        margin-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 1rem;
+    }
+
+    .navbar-nav.ms-auto .nav-item {
+        width: 100%;
+    }
+
+    .navbar-nav.ms-auto .nav-link {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu {
+        width: calc(100% - 1rem);
+        margin: 0.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .dropdown-item {
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background-color: #ff6b6b;
+        color: #fff;
+    }
+}
+
+/* ====================================
+   Планшеты (768px - 991px)
+   ==================================== */
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.75rem !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+}
+
+/* ====================================
+   Десктоп улучшения
+   ==================================== */
+
+@media (min-width: 992px) {
+    /* Выпадающее меню */
+    .dropdown-menu {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: none;
+        margin-top: 0.5rem;
+    }
+
+    .dropdown-item {
+        padding: 0.6rem 1.2rem;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background-color: #ff6b6b;
+        color: #fff;
+        transform: translateX(5px);
+    }
+
+    /* Активная ссылка */
+    .nav-link.active {
+        color: #ff6b6b !important;
+        font-weight: 600;
+    }
+}
+
+/* ====================================
+   Маленькие мобильные устройства (<576px)
+   ==================================== */
+
+@media (max-width: 575.98px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .nav-link {
+        font-size: 0.95rem;
+    }
+}
+
+/* ====================================
+   Очень маленькие устройства (<=430px)
+   ==================================== */
+
+@media (max-width: 430px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.8rem !important;
+    }
+
+    .nav-link i {
+        font-size: 0.95rem;
+    }
+
+    .navbar-toggler {
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* ====================================
+   Кнопка "Назад" для мобильных
+   ==================================== */
+
+.btn-back-mobile {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-back-mobile i {
+    font-size: 1.5rem;
+}
+
+.btn-back-mobile:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.5);
+}
+
+.btn-back-mobile:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 767.98px) {
+    .btn-back-mobile {
+        display: flex;
+    }
+}
+
+/* Скрыть на главной странице */
+body.home-page .btn-back-mobile {
+    display: none !important;
+}
+
+/* ====================================
+   Анимации
+   ==================================== */
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar-collapse.show,
+.navbar-collapse.collapsing {
+    animation: slideDown 0.3s ease-out;
+}
+
+/* Плавное появление меню */
+.navbar-collapse {
+    transition: all 0.3s ease;
+}
+
+/* Улучшение кликабельности на touch устройствах */
+@media (hover: none) {
+    .nav-link,
+    .btn-search-navbar,
+    .navbar-brand {
+        -webkit-tap-highlight-color: rgba(255, 107, 107, 0.2);
+    }
+}

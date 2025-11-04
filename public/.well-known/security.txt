@@ -1,0 +1,20 @@
+# Security Contact Information
+# Обновлено: 4 ноября 2025 года
+
+Contact: mailto:security@im-edok.ru
+Contact: https://im-edok.ru/security
+Expires: 2026-11-04T00:00:00.000Z
+Preferred-Languages: ru, en
+Canonical: https://im-edok.ru/.well-known/security.txt
+
+# Политика раскрытия информации
+Policy: https://im-edok.ru/security-policy
+
+# Благодарности
+Acknowledgments: https://im-edok.ru/security-thanks
+
+# Encryption
+# Encryption: https://im-edok.ru/pgp-key.txt
+
+# Hiring
+Hiring: https://im-edok.ru/jobs

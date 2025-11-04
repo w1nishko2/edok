@@ -1,0 +1,124 @@
+/* Fonts */
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+/* Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Cookie Consent Modal */
+@import './cookie-consent.css';
+
+/* Custom Variables */
+:root {
+    --bs-body-bg: #f8fafc;
+    --bs-body-font-family: 'Nunito', sans-serif;
+    --bs-body-font-size: 0.9rem;
+    --bs-body-line-height: 1.6;
+}
+
+/* Custom Styles */
+body {
+    background-color: var(--bs-body-bg);
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    line-height: var(--bs-body-line-height);
+}
+
+/* Infinite Scroll Styles */
+#loading-indicator {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem 0;
+}
+
+#loading-indicator .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+#no-more-content {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+#no-more-content i {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+/* Анимация появления карточек */
+.recipe-card-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Плавная прокрутка */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Кликабельные карточки рецептов */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.card-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-link .custom-card {
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Стили для категорий */
+.recipe-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.recipe-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.recipe-link .recipe-card {
+    cursor: pointer;
+}
+
+/* Footer Styles */
+footer .hover-link {
+    transition: color 0.2s ease;
+}
+
+footer .hover-link:hover {
+    color: #ffffff !important;
+}
+
+footer hr {
+    opacity: 0.2;
+}
+
+/* Отступ для body чтобы footer не перекрывал контент */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.text-muted {
+    color: #ffffff !important;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
