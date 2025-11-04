@@ -41,6 +41,8 @@ class InfiniteScrollBrowserParserService
             sleep(3);
 
             $allUrls = [];
+            $previousCount = 0;
+            $noChangeCount = 0;
             
             // Скроллим страницу вниз несколько раз
             for ($i = 0; $i < $scrolls; $i++) {
@@ -49,8 +51,8 @@ class InfiniteScrollBrowserParserService
                 // Скроллим в самый низ страницы
                 $client->executeScript('window.scrollTo(0, document.body.scrollHeight);');
                 
-                // Ждем загрузки новых рецептов
-                sleep(2);
+                // Ждем загрузки новых рецептов (увеличиваем паузу для надежности)
+                sleep(3);
                 
                 // Собираем все ссылки на рецепты
                 $crawler = $client->getCrawler();
@@ -71,13 +73,26 @@ class InfiniteScrollBrowserParserService
                     }
                 }
                 
-                Log::info("📊 После скролла #{$i}: собрано " . count($allUrls) . " уникальных URL");
+                $currentCount = count($allUrls);
+                $newInThisScroll = $currentCount - $previousCount;
                 
-                // Если рецепты больше не добавляются - выходим
-                if ($i > 0 && count($allUrls) === count($allUrls)) {
-                    Log::info("⚠️ Новые рецепты больше не загружаются, останавливаем скролл");
-                    break;
+                Log::info("📊 После скролла #{$i}: всего {$currentCount} URL (+{$newInThisScroll} новых)");
+                
+                // Если рецепты больше не добавляются - считаем попытки
+                if ($currentCount === $previousCount) {
+                    $noChangeCount++;
+                    Log::warning("⚠️ Нет новых рецептов после скролла (попытка {$noChangeCount}/3)");
+                    
+                    // После 3 попыток без изменений - останавливаем
+                    if ($noChangeCount >= 3) {
+                        Log::info("🛑 Достигнут конец списка, останавливаем парсинг");
+                        break;
+                    }
+                } else {
+                    $noChangeCount = 0; // Сбрасываем счетчик
                 }
+                
+                $previousCount = $currentCount;
             }
 
             $client->quit();
@@ -126,7 +141,9 @@ class InfiniteScrollBrowserParserService
         Log::info("📊 Статистика", [
             'total_found' => count($allUrls),
             'new_recipes' => count($newUrls),
-            'already_in_db' => count($allUrls) - count($newUrls)
+            'already_in_db' => count($allUrls) - count($newUrls),
+            'first_3_urls' => array_slice($allUrls, 0, 3),
+            'first_3_new' => array_slice($newUrls, 0, 3),
         ]);
 
         // Ограничиваем нужным количеством
