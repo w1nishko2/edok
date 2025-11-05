@@ -7,25 +7,26 @@
 # ВАЖНО: Используйте полные пути к файлам!
 # Путь к проекту: /home/g/gamechann2/im-edok_ru
 # Путь к artisan: /home/g/gamechann2/im-edok_ru/artisan
-# PHP: /usr/bin/php8.1
+# PHP: php8.1
 
 # =====================================================================
 # 1. БЕСКОНЕЧНЫЙ СБОР РЕЦЕПТОВ (запускается 1 раз и работает постоянно)
 # =====================================================================
-# Проверка каждые 5 минут - если процесс упал, перезапускаем
-*/5 * * * * cd /home/g/gamechann2/im-edok_ru && pgrep -f "recipes:collect-infinite" || /usr/bin/php8.1 artisan recipes:collect-infinite --delay=300 --batch=20 >> /home/g/gamechann2/im-edok_ru/storage/logs/infinite-collector.log 2>&1 &
+# Проверка каждые 2 минуты - если процесс упал, перезапускаем
+# delay=60 означает паузу 60 секунд между категориями (1 минута на категорию)
+*/2 * * * * cd /home/g/gamechann2/im-edok_ru && pgrep -f "recipes:collect-infinite" || php8.1 artisan recipes:collect-infinite --delay=60 >> /home/g/gamechann2/im-edok_ru/storage/logs/infinite-collector.log 2>&1 &
 
 # =====================================================================
 # 2. ОБРАБОТКА ОЧЕРЕДИ - СОЗДАНИЕ КАРТОЧЕК РЕЦЕПТОВ
 # =====================================================================
 # Каждые 30 минут обрабатывает 50 рецептов из очереди
-*/30 * * * * cd /home/g/gamechann2/im-edok_ru && /usr/bin/php8.1 artisan recipes:process-queue --limit=50 >> /home/g/gamechann2/im-edok_ru/storage/logs/queue-processor.log 2>&1
+*/30 * * * * cd /home/g/gamechann2/im-edok_ru && php8.1 artisan recipes:process-queue --limit=50 >> /home/g/gamechann2/im-edok_ru/storage/logs/queue-processor.log 2>&1
 
 # =====================================================================
 # 3. ГЕНЕРАЦИЯ SITEMAP (опционально)
 # =====================================================================
 # Каждый день в 03:00 обновляет sitemap
-0 3 * * * cd /home/g/gamechann2/im-edok_ru && /usr/bin/php8.1 artisan sitemap:generate >> /home/g/gamechann2/im-edok_ru/storage/logs/sitemap.log 2>&1
+0 3 * * * cd /home/g/gamechann2/im-edok_ru && php8.1 artisan sitemap:generate >> /home/g/gamechann2/im-edok_ru/storage/logs/sitemap.log 2>&1
 
 # =====================================================================
 # 4. ОЧИСТКА СТАРЫХ ЛОГОВ (опционально)
@@ -40,7 +41,7 @@
 # используйте обычный сбор каждые 15 минут:
 
 # Раскомментируйте эту строку и закомментируйте строку с collect-infinite выше:
-# */15 * * * * cd /home/g/gamechann2/im-edok_ru && /usr/bin/php8.1 artisan recipes:collect-urls --count=30 >> /home/g/gamechann2/im-edok_ru/storage/logs/url-collector.log 2>&1
+# */15 * * * * cd /home/g/gamechann2/im-edok_ru && php8.1 artisan recipes:collect-urls --count=30 >> /home/g/gamechann2/im-edok_ru/storage/logs/url-collector.log 2>&1
 
 # =====================================================================
 # ИНСТРУКЦИИ ПО УСТАНОВКЕ
@@ -81,7 +82,7 @@
 # pkill -f "recipes:collect-infinite"
 #
 # Запустить вручную для теста:
-# cd /home/g/gamechann2/im-edok_ru && /usr/bin/php8.1 artisan recipes:process-queue --limit=5
+# cd /home/g/gamechann2/im-edok_ru && php8.1 artisan recipes:process-queue --limit=5
 #
 # =====================================================================
 

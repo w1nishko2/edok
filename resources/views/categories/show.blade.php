@@ -49,7 +49,7 @@
         @if($recipes->count() > 0)
             <div class="recipes-section">
                 <h2 class="section-title">Рецепты</h2>
-                <div class="recipes-grid" id="recipes-container" data-next-page="{{ $recipes->nextPageUrl() }}">
+                <div class="row g-3 g-sm-4" id="recipes-container" data-next-page="{{ $recipes->nextPageUrl() }}">
                     @include('partials.recipe-cards-category', ['recipes' => $recipes])
                 </div>
 
@@ -194,90 +194,6 @@
     margin-bottom: 3rem;
 }
 
-.recipes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.recipe-card {
-    background: #fff;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.recipe-card:hover {
-    border-color: #000;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.recipe-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-}
-
-.recipe-link:hover {
-    text-decoration: none;
-    color: inherit;
-}
-
-.recipe-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.recipe-image-placeholder {
-    width: 100%;
-    height: 200px;
-    background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.recipe-image-placeholder i {
-    font-size: 3rem;
-    color: #ccc;
-}
-
-.recipe-content {
-    padding: 1.5rem;
-}
-
-.recipe-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #000;
-    margin-bottom: 0.75rem;
-}
-
-.recipe-description {
-    font-size: 0.95rem;
-    color: #666;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-.recipe-meta {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: #999;
-}
-
-.meta-item {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
 /* Пустое состояние */
 .no-recipes {
     text-align: center;
@@ -307,12 +223,22 @@
         font-size: 2rem;
     }
     
-    .recipes-grid {
-        grid-template-columns: 1fr;
-    }
-    
     .subcategories-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 567px) {
+    .category-title {
+        font-size: 1.5rem;
+    }
+    
+    .category-stats {
+        font-size: 0.95rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
     }
 }
 </style>

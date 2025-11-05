@@ -1,40 +1,41 @@
-@foreach($recipes as $recipe)
-    <a href="{{ route('recipe.show', $recipe->slug) }}" class="recipe-link recipe-card-item">
-        <article class="recipe-card">
-            @if($recipe->image_path)
-                <img src="{{ asset('storage/' . $recipe->image_path) }}" 
-                     alt="{{ $recipe->title }}" 
-                     class="recipe-image"
-                     loading="lazy">
-            @else
-                <div class="recipe-image-placeholder">
-                    <i class="bi bi-image"></i>
-                </div>
-            @endif
-            
-            <div class="recipe-content">
-                <h3 class="recipe-title">{{ $recipe->title }}</h3>
+@foreach($recipes as $index => $recipe)
+    <div class="col-6 col-sm-6 col-lg-4 col-xl-3 recipe-card-item">
+        <a href="{{ route('recipe.show', $recipe->slug) }}" class="card-link" itemprop="url">
+            <article class="custom-card" itemscope itemtype="https://schema.org/Recipe">
+                <meta itemprop="position" content="{{ $index + 1 }}">
+                <meta itemprop="url" content="{{ route('recipe.show', $recipe->slug) }}">
+                <meta itemprop="datePublished" content="{{ $recipe->created_at->toIso8601String() }}">
                 
-                @if($recipe->description)
-                    <p class="recipe-description">{{ Str::limit($recipe->description, 100) }}</p>
+                @if($recipe->image_path)
+                    <img src="{{ Storage::url($recipe->image_path) }}" 
+                         class="custom-card-img" 
+                         alt="{{ $recipe->title }}"
+                         itemprop="image"
+                         loading="lazy"
+                         width="400"
+                         height="300">
+                @else
+                    <div class="custom-card-img-placeholder">
+                        <i class="bi bi-image" style="font-size: 3rem;"></i>
+                    </div>
                 @endif
                 
-                <div class="recipe-meta">
-                    @if($recipe->total_time)
-                        <span class="meta-item">
-                            <i class="bi bi-clock"></i>
-                            {{ $recipe->total_time }} мин
-                        </span>
-                    @endif
+                <div class="custom-card-body">
+                    <h5 class="custom-card-title" itemprop="name">{{ Str::limit($recipe->title, 60) }}</h5>
                     
-                    @if($recipe->views)
-                        <span class="meta-item">
-                            <i class="bi bi-eye"></i>
-                            {{ $recipe->views }}
-                        </span>
-                    @endif
+                    @php
+                        $hasCalories = $recipe->nutrition && isset($recipe->nutrition['calories']) && $recipe->nutrition['calories'] > 0;
+                        $hasCaloriesFromMacros = $recipe->nutrition && (
+                            (isset($recipe->nutrition['proteins']) && $recipe->nutrition['proteins'] > 0) ||
+                            (isset($recipe->nutrition['fats']) && $recipe->nutrition['fats'] > 0) ||
+                            (isset($recipe->nutrition['carbs']) && $recipe->nutrition['carbs'] > 0)
+                        );
+                        $showNutrition = $hasCalories || $hasCaloriesFromMacros;
+                    @endphp
+                    
+                 
                 </div>
-            </div>
-        </article>
-    </a>
+            </article>
+        </a>
+    </div>
 @endforeach

@@ -23,8 +23,8 @@
 /* Секция поиска */
 .search-section {
     background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
-    padding: 3rem 0;
-    margin-bottom: 3rem;
+    padding: 1rem 0;
+    margin-bottom: 0rem;
 }
 
 .search-form-page {
@@ -93,8 +93,8 @@
 /* Адаптивность */
 @media (max-width: 767.98px) {
     .search-section {
-        padding: 2rem 0;
-        margin-bottom: 2rem;
+        padding: 1rem 0;
+        margin-bottom: 0rem;
     }
 
     .search-input-wrapper {
@@ -120,8 +120,8 @@
 
 @media (max-width: 430px) {
     .search-section {
-        padding: 1.5rem 0;
-        margin-bottom: 1.5rem;
+        padding: 1rem 0;
+        margin-bottom:0rem;
     }
 
     .search-input-wrapper {

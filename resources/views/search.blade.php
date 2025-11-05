@@ -52,7 +52,7 @@
                 </div>
 
                 @if($totalResults > 0)
-                    <div class="row g-4" id="recipes-container" 
+                    <div class="row g-3 g-sm-4" id="recipes-container" 
                          data-next-page="{{ isset($hasMore) && $hasMore ? route('search', ['q' => $query, 'page' => ($currentPage ?? 1) + 1]) : '' }}">
                         @include('partials.recipe-cards-search', ['recipes' => $recipes])
                     </div>

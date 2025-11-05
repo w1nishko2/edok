@@ -11,19 +11,22 @@ use DOMXPath;
 class RecipeListParserService
 {
     protected Client $client;
-    protected string $baseUrl = 'https://povar.ru';
-    protected int $recipesPerPage = 30; // Количество рецептов на странице
+    protected string $baseUrl = 'https://food.ru';
+    protected int $recipesPerPage = 40; // Количество рецептов на странице food.ru (не 48!)
     
     // Категории для парсинга
     protected array $categories = [
-        'meat' => 'Блюда из мяса',
-        'fish' => 'Блюда из рыбы',
-        'ptica' => 'Блюда из птицы',
-        'vegies' => 'Блюда из овощей',
-        'salad' => 'Салаты',
-        'soup' => 'Супы',
+        'ot-redakcii-foodru/dostupnyi-zozh' => 'Доступный ЗОЖ',
+        'zakuski' => 'Закуски',
+        'salaty' => 'Салаты',
+        'pervye-bliuda' => 'Первые блюда',
+        'vtorye-bliuda' => 'Вторые блюда',
+        'garniry' => 'Гарниры',
+        'deserty' => 'Десерты',
         'vypechka' => 'Выпечка',
-        'dessert' => 'Десерты',
+        'napitki' => 'Напитки',
+        'zagotovki' => 'Заготовки и консервы',
+        'sousy-i-marinady' => 'Соусы и маринады',
     ];
 
     public function __construct()
@@ -44,19 +47,21 @@ class RecipeListParserService
 
     /**
      * Получить список URL рецептов с одной конкретной страницы категории
-     * Использует нумерованную пагинацию: /list/meat/, /list/meat/2/, /list/meat/3/
+     * На food.ru первая страница БЕЗ ?page=1, начинается с ?page=2
      *
-     * @param string $category Slug категории (meat, fish, ptica и т.д.)
-     * @param int $page Номер страницы (первая страница = 1, НО URL без номера!)
+     * @param string $category Slug категории (zakuski, salaty и т.д.)
+     * @param int $page Номер страницы (первая страница = 1)
      * @return array Массив URL рецептов
      */
     public function parseRecipesList(string $category, int $page = 1): array
     {
         try {
-            // Формируем URL: первая страница БЕЗ номера, остальные - с номером
-            $pageUrl = $this->baseUrl . '/list/' . $category . '/';
-            if ($page > 1) {
-                $pageUrl .= $page . '/';
+            // На food.ru первая страница БЕЗ параметра ?page=1
+            // Страницы начинаются с ?page=2
+            if ($page === 1) {
+                $pageUrl = "{$this->baseUrl}/recipes/{$category}";
+            } else {
+                $pageUrl = "{$this->baseUrl}/recipes/{$category}?page={$page}";
             }
 
             Log::info("🔍 Парсинг категории '{$category}', страница {$page}: {$pageUrl}");
@@ -75,7 +80,7 @@ class RecipeListParserService
 
     /**
      * Получить рецепты из конкретного URL
-     * Парсит HTML-страницу povar.ru с помощью DOMXPath
+     * Парсит HTML-страницу food.ru с помощью DOMXPath
      *
      * @param string $url URL для парсинга
      * @return array Массив URL рецептов
@@ -95,15 +100,16 @@ class RecipeListParserService
             
             $recipeUrls = [];
 
-            // Ищем все ссылки на рецепты: <a href="/recipes/salat_parij-73708.html" class="listRecipieTitle">
-            $nodes = $xpath->query('//div[@class="recipe"]//a[@class="listRecipieTitle"]');
+            // Ищем все ссылки на рецепты в карточках
+            // Структура: <a class="card_cardLink__EUMlQ" href="/recipes/263641-tvorozhnaja-zapekanka-s-jagodamI">
+            $nodes = $xpath->query('//a[contains(@class, "card_cardLink")]/@href');
             
             if ($nodes && $nodes->length > 0) {
                 foreach ($nodes as $node) {
-                    $href = $node->getAttribute('href');
+                    $href = $node->nodeValue;
                     
                     // Проверяем, что это действительно ссылка на рецепт
-                    if ($href && str_starts_with($href, '/recipes/')) {
+                    if ($href && str_starts_with($href, '/recipes/') && preg_match('/\/recipes\/\d+/', $href)) {
                         $fullUrl = $this->baseUrl . $href;
                         
                         if (!in_array($fullUrl, $recipeUrls)) {
@@ -125,14 +131,16 @@ class RecipeListParserService
     /**
      * Собрать точное количество НОВЫХ рецептов из указанной категории
      * Автоматически фильтрует уже существующие в базе рецепты
-     * Использует нумерованную пагинацию (1, 2, 3...)
+     * Использует пагинацию с параметром ?page=
+     * ВАЖНО: Возвращает генератор для постраничной обработки
      *
-     * @param string $category Slug категории (meat, fish, ptica и т.д.)
+     * @param string $category Slug категории (zakuski, salaty и т.д.)
      * @param int $targetCount Целевое количество НОВЫХ рецептов
-     * @param int $startPage Начальная страница (по умолчанию 1, для meat можно начать с 2)
+     * @param int $startPage Начальная страница (по умолчанию 1)
+     * @param callable|null $callback Колбэк для обработки каждой порции URL (для добавления в очередь сразу)
      * @return array Массив URL новых рецептов
      */
-    public function parseMultiplePages(string $category, int $targetCount = 30, int $startPage = 1): array
+    public function parseMultiplePages(string $category, int $targetCount = 30, int $startPage = 1, ?callable $callback = null): array
     {
         Log::info("🎯 Задача: найти {$targetCount} НОВЫХ рецептов из категории '{$category}' (с {$startPage}-й страницы)");
         
@@ -179,6 +187,11 @@ class RecipeListParserService
                 $toAdd = array_slice($filtered, 0, $needMore);
                 
                 $newRecipes = array_merge($newRecipes, $toAdd);
+                
+                // ✅ ВЫЗЫВАЕМ CALLBACK СРАЗУ для добавления в очередь
+                if ($callback && !empty($toAdd)) {
+                    $callback($toAdd, $currentPage);
+                }
                 
                 Log::info("✅ Собрано новых рецептов: " . count($newRecipes) . "/{$targetCount}");
                 

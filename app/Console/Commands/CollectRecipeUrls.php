@@ -18,106 +18,118 @@ class CollectRecipeUrls extends Command
 
     public function handle(RecipeListParserService $parser): int
     {
+        // Увеличиваем лимит времени выполнения для больших объёмов
+        set_time_limit(0); // Без ограничения времени
+        ini_set('memory_limit', '512M'); // Увеличиваем лимит памяти
+        
         $category = $this->argument('category');
         $targetCount = (int) $this->option('count');
         $startPage = (int) $this->option('start-page');
 
         $this->info("╔════════════════════════════════════════════════════════╗");
-        $this->info("║   📥 Сбор URL рецептов с Povar.ru                    ║");
+        $this->info("║   📥 Сбор URL рецептов с Food.ru                     ║");
         $this->info("╚════════════════════════════════════════════════════════╝");
         $this->newLine();
 
         // Если категория не указана, собираем из всех
         if (!$category) {
             $categories = $parser->getCategories();
-            $this->info("� Будут обработаны все категории:");
+            $this->info("📋 Будут обработаны все категории:");
             foreach ($categories as $slug => $name) {
                 $this->info("  • {$slug} - {$name}");
             }
             $this->newLine();
             
-            $allUrls = [];
+            $totalAdded = 0;
+            $totalSkipped = 0;
+            
             foreach (array_keys($categories) as $slug) {
                 $this->info("🔍 Обрабатываем категорию: {$slug}");
-                $urls = $parser->parseMultiplePages($slug, $targetCount, $startPage);
-                $allUrls = array_merge($allUrls, $urls);
                 
-                if (count($urls) > 0) {
-                    $this->info("  ✅ Найдено: " . count($urls));
-                }
+                // Колбэк для добавления в очередь сразу после парсинга каждой страницы
+                $callback = function($urls, $pageNum) use (&$totalAdded, &$totalSkipped) {
+                    foreach ($urls as $url) {
+                        try {
+                            $exists = RecipeQueue::where('url', $url)->exists();
+                            
+                            if (!$exists) {
+                                RecipeQueue::create([
+                                    'url' => $url,
+                                    'status' => RecipeQueue::STATUS_PENDING,
+                                ]);
+                                $totalAdded++;
+                            } else {
+                                $totalSkipped++;
+                            }
+                        } catch (\Exception $e) {
+                            Log::error("❌ Ошибка добавления URL: {$url}", ['error' => $e->getMessage()]);
+                            $totalSkipped++;
+                        }
+                    }
+                    
+                    $this->info("  💾 Страница {$pageNum}: добавлено в очередь: " . count($urls));
+                };
+                
+                $parser->parseMultiplePages($slug, $targetCount, $startPage, $callback);
                 
                 sleep(rand(2, 4)); // Пауза между категориями
             }
             
-            $urls = $allUrls;
+            $this->newLine();
+            $this->info("✅ Всего добавлено: {$totalAdded}");
+            $this->info("⏭️  Всего пропущено (дубликаты): {$totalSkipped}");
+            
         } else {
             $this->info("🎯 Категория: {$category}");
             $this->info("🎯 Цель: {$targetCount} новых URL");
             $this->info("📄 Начальная страница: {$startPage}");
             $this->newLine();
 
-            $urls = $parser->parseMultiplePages($category, $targetCount, $startPage);
-        }
-
-        if (empty($urls)) {
-            $this->warn("⚠️ Не найдено новых рецептов для добавления в очередь");
-            return self::SUCCESS;
-        }
-
-        $this->info("✅ Собрано " . count($urls) . " новых URL");
-        $this->newLine();
-
-        // Добавляем в очередь
-        $added = 0;
-        $skipped = 0;
-
-        $progressBar = $this->output->createProgressBar(count($urls));
-        $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% - Добавлено: %message%');
-        $progressBar->setMessage('0');
-
-        foreach ($urls as $url) {
-            try {
-                // Проверяем, нет ли уже в очереди
-                $exists = RecipeQueue::where('url', $url)->exists();
-                
-                if (!$exists) {
-                    RecipeQueue::create([
-                        'url' => $url,
-                        'status' => RecipeQueue::STATUS_PENDING,
-                    ]);
-                    $added++;
-                    $progressBar->setMessage((string) $added);
-                } else {
-                    $skipped++;
+            $added = 0;
+            $skipped = 0;
+            
+            // Колбэк для добавления в очередь сразу после парсинга каждой страницы
+            $callback = function($urls, $pageNum) use (&$added, &$skipped) {
+                foreach ($urls as $url) {
+                    try {
+                        $exists = RecipeQueue::where('url', $url)->exists();
+                        
+                        if (!$exists) {
+                            RecipeQueue::create([
+                                'url' => $url,
+                                'status' => RecipeQueue::STATUS_PENDING,
+                            ]);
+                            $added++;
+                        } else {
+                            $skipped++;
+                        }
+                    } catch (\Exception $e) {
+                        Log::error("❌ Ошибка добавления URL: {$url}", ['error' => $e->getMessage()]);
+                        $skipped++;
+                    }
                 }
+                
+                $this->info("💾 Страница {$pageNum}: добавлено в очередь: " . count($urls) . " (всего: {$added})");
+            };
 
-                $progressBar->advance();
-
-            } catch (\Exception $e) {
-                Log::error("❌ Ошибка добавления URL в очередь: {$url}", [
-                    'error' => $e->getMessage()
-                ]);
-                $skipped++;
-                $progressBar->advance();
-            }
+            $parser->parseMultiplePages($category, $targetCount, $startPage, $callback);
+            
+            $this->newLine();
+            $this->info("✅ Добавлено в очередь: {$added}");
+            $this->info("⏭️  Пропущено (дубликаты): {$skipped}");
         }
-
-        $progressBar->finish();
-        $this->newLine(2);
-
+        
+        // Статистика очереди
+        $pending = RecipeQueue::where('status', RecipeQueue::STATUS_PENDING)->count();
+        
+        $this->newLine();
         $this->info("╔════════════════════════════════════════════════════════╗");
         $this->info("║   ✅ Сбор URL завершен                                ║");
         $this->info("╚════════════════════════════════════════════════════════╝");
         $this->newLine();
-
-        $this->info("✅ Добавлено в очередь: {$added}");
-        $this->info("⏭️  Пропущено (дубликаты): {$skipped}");
-        
-        // Статистика очереди
-        $pending = RecipeQueue::where('status', RecipeQueue::STATUS_PENDING)->count();
         $this->info("📊 Всего в очереди ожидания: {$pending}");
 
-        Log::info("📥 Сбор URL завершен: добавлено {$added}, пропущено {$skipped}, в очереди {$pending}");
+        Log::info("📥 Сбор URL завершен: в очереди {$pending}");
 
         return self::SUCCESS;
     }

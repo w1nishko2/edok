@@ -1,5 +1,5 @@
 @foreach($recipes as $index => $recipe)
-    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 recipe-card-item">
+    <div class="col-6 col-sm-6 col-lg-4 col-xl-3 recipe-card-item">
         <a href="{{ route('recipe.show', $recipe->slug) }}" class="card-link" itemprop="url">
             <article class="custom-card" itemscope itemtype="https://schema.org/Recipe">
                 <meta itemprop="position" content="{{ $index + 1 }}">
@@ -24,34 +24,17 @@
                     <h5 class="custom-card-title" itemprop="name">{{ Str::limit($recipe->title, 60) }}</h5>
                  
                     
-                    <div class="custom-card-stats">
-                        <div class="custom-stats-left">
-                            @if($recipe->views)
-                                <span class="custom-stat">
-                                    <i class="bi bi-eye"></i> {{ number_format($recipe->views, 0, ',', ' ') }}
-                                </span>
-                            @endif
-                            @if($recipe->likes)
-                                <span class="custom-stat">
-                                    <i class="bi bi-hand-thumbs-up"></i> {{ $recipe->likes }}
-                                </span>
-                            @endif
-                            @if($recipe->rating > 0)
-                                <span class="custom-stat" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-                                    <i class="bi bi-star-fill text-warning"></i> 
-                                    <span itemprop="ratingValue">{{ number_format($recipe->rating, 1) }}</span>
-                                    <meta itemprop="ratingCount" content="{{ $recipe->rating_count }}">
-                                    <meta itemprop="bestRating" content="5">
-                                </span>
-                            @endif
-                        </div>
-                        @if($recipe->nutrition && isset($recipe->nutrition['calories']))
-                            <span class="custom-stat" itemprop="nutrition" itemscope itemtype="https://schema.org/NutritionInformation">
-                                <i class="bi bi-fire"></i> 
-                                <span itemprop="calories">{{ $recipe->nutrition['calories'] }}</span>
-                            </span>
-                        @endif
-                    </div>
+                    @php
+                        $hasCalories = $recipe->nutrition && isset($recipe->nutrition['calories']) && $recipe->nutrition['calories'] > 0;
+                        $hasCaloriesFromMacros = $recipe->nutrition && (
+                            (isset($recipe->nutrition['proteins']) && $recipe->nutrition['proteins'] > 0) ||
+                            (isset($recipe->nutrition['fats']) && $recipe->nutrition['fats'] > 0) ||
+                            (isset($recipe->nutrition['carbs']) && $recipe->nutrition['carbs'] > 0)
+                        );
+                        $showNutrition = $hasCalories || $hasCaloriesFromMacros;
+                    @endphp
+                    
+                   
                 </div>
             </article>
         </a>

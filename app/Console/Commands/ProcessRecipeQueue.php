@@ -24,6 +24,10 @@ class ProcessRecipeQueue extends Command
 
     public function handle(): int
     {
+        // Увеличиваем лимит времени выполнения для больших объёмов
+        set_time_limit(0); // Без ограничения времени
+        ini_set('memory_limit', '512M'); // Увеличиваем лимит памяти
+        
         $limit = (int) $this->option('limit');
 
         $this->info("╔════════════════════════════════════════════════════════╗");

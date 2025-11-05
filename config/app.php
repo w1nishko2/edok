@@ -185,4 +185,16 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Watermark Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Настройки водяных знаков для изображений рецептов
+    |
+    */
+
+    'watermark_enabled' => env('WATERMARK_ENABLED', true),
+    'watermark_text' => env('WATERMARK_TEXT', 'im-edok.ru'),
+
 ];

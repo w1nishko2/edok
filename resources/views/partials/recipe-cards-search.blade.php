@@ -1,49 +1,41 @@
-@foreach($recipes as $recipe)
-    <div class="col-md-4 recipe-card-item">
-        <a href="{{ route('recipe.show', $recipe->slug) }}" class="card-link">
-            <div class="custom-card h-100">
+@foreach($recipes as $index => $recipe)
+    <div class="col-6 col-sm-6 col-lg-4 col-xl-3 recipe-card-item">
+        <a href="{{ route('recipe.show', $recipe->slug) }}" class="card-link" itemprop="url">
+            <article class="custom-card" itemscope itemtype="https://schema.org/Recipe">
+                <meta itemprop="position" content="{{ $index + 1 }}">
+                <meta itemprop="url" content="{{ route('recipe.show', $recipe->slug) }}">
+                <meta itemprop="datePublished" content="{{ $recipe->created_at->toIso8601String() }}">
+                
                 @if($recipe->image_path)
-                    <img src="{{ asset('storage/' . $recipe->image_path) }}" 
+                    <img src="{{ Storage::url($recipe->image_path) }}" 
                          class="custom-card-img" 
                          alt="{{ $recipe->title }}"
-                         loading="lazy">
+                         itemprop="image"
+                         loading="lazy"
+                         width="400"
+                         height="300">
                 @else
                     <div class="custom-card-img-placeholder">
-                        <i class="bi bi-image"></i>
+                        <i class="bi bi-image" style="font-size: 3rem;"></i>
                     </div>
                 @endif
                 
                 <div class="custom-card-body">
-                    <h5 class="custom-card-title">{{ $recipe->title }}</h5>
+                    <h5 class="custom-card-title" itemprop="name">{{ Str::limit($recipe->title, 60) }}</h5>
                     
-                    @if($recipe->description)
-                        <p class="custom-card-text">
-                            {{ Str::limit(strip_tags($recipe->description), 100) }}
-                        </p>
-                    @endif
+                    @php
+                        $hasCalories = $recipe->nutrition && isset($recipe->nutrition['calories']) && $recipe->nutrition['calories'] > 0;
+                        $hasCaloriesFromMacros = $recipe->nutrition && (
+                            (isset($recipe->nutrition['proteins']) && $recipe->nutrition['proteins'] > 0) ||
+                            (isset($recipe->nutrition['fats']) && $recipe->nutrition['fats'] > 0) ||
+                            (isset($recipe->nutrition['carbs']) && $recipe->nutrition['carbs'] > 0)
+                        );
+                        $showNutrition = $hasCalories || $hasCaloriesFromMacros;
+                    @endphp
                     
-                    <div class="custom-card-stats">
-                        <div class="custom-stats-left">
-                            @if($recipe->total_time)
-                                <span class="custom-stat">
-                                    <i class="bi bi-clock"></i> {{ $recipe->total_time }}
-                                </span>
-                            @endif
-                            @if($recipe->difficulty)
-                                <span class="custom-stat">
-                                    <i class="bi bi-bar-chart"></i> {{ $recipe->difficulty }}
-                                </span>
-                            @endif
-                        </div>
-                        
-                        @if(isset($recipe->similarity_score))
-                            <div class="similarity-badge">
-                                <i class="bi bi-percent"></i> {{ $recipe->similarity_score }}%
-                            </div>
-                        @endif
-                    </div>
+                  
                 </div>
-            </div>
+            </article>
         </a>
     </div>
 @endforeach

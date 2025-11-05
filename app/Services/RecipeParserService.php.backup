@@ -15,11 +15,9 @@ class RecipeParserService
 {
     protected Client $client;
     protected string $baseUrl = 'https://food.ru';
-    protected WatermarkService $watermarkService;
 
-    public function __construct(WatermarkService $watermarkService)
+    public function __construct()
     {
-        $this->watermarkService = $watermarkService;
         $this->client = new Client([
             'verify' => false,
             'timeout' => 30,
@@ -56,8 +54,7 @@ class RecipeParserService
             libxml_use_internal_errors(true);
             
             $dom = new DOMDocument();
-            // ВАЖНО: загружаем HTML с явным указанием UTF-8 кодировки
-            $dom->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $dom->loadHTML($html);
             $xpath = new DOMXPath($dom);
             
             libxml_clear_errors();
@@ -109,19 +106,18 @@ class RecipeParserService
     }
 
     /**
-     * Парсинг названия рецепта для food.ru
-     * <h1 itemprop="name">Творожная запеканка с ягодами</h1>
+     * Парсинг названия рецепта
+     * <h1 class="detailed fn" itemprop="name">Домашняя Нутелла</h1>
      */
     protected function parseTitle(DOMXPath $xpath): string
     {
-        // Ищем заголовок H1 с itemprop="name" (Schema.org)
-        $nodes = $xpath->query('//h1[@itemprop="name"]');
+        $nodes = $xpath->query('//h1[@class="detailed fn" and @itemprop="name"]');
         if ($nodes && $nodes->length > 0) {
             return trim($nodes->item(0)->textContent);
         }
         
-        // Запасной вариант - просто H1
-        $nodes = $xpath->query('//h1');
+        // Попытка без класса
+        $nodes = $xpath->query('//h1[@itemprop="name"]');
         if ($nodes && $nodes->length > 0) {
             return trim($nodes->item(0)->textContent);
         }
@@ -130,25 +126,17 @@ class RecipeParserService
     }
 
     /**
-     * Парсинг описания рецепта для food.ru
-     * Берем из meta description или itemprop="description"
+     * Парсинг описания рецепта
+     * Povar.ru не всегда имеет явное описание, возьмем из meta description
      */
     protected function parseDescription(DOMXPath $xpath): ?string
     {
-        // Пробуем найти описание в Schema.org
-        $nodes = $xpath->query('//*[@itemprop="description"]');
+        // Пробуем найти описание в meta description
+        $nodes = $xpath->query('//meta[@name="description"]');
         if ($nodes && $nodes->length > 0) {
-            $desc = trim($nodes->item(0)->textContent);
-            if ($desc) {
-                return html_entity_decode($desc, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            }
-        }
-        
-        // Пробуем найти в meta description
-        $nodes = $xpath->query('//meta[@name="description"]/@content');
-        if ($nodes && $nodes->length > 0) {
-            $content = $nodes->item(0)->nodeValue;
+            $content = $nodes->item(0)->getAttribute('content');
             if ($content) {
+                // Декодируем HTML-сущности (&quot; -> ")
                 return html_entity_decode(trim($content), ENT_QUOTES | ENT_HTML5, 'UTF-8');
             }
         }
@@ -157,23 +145,19 @@ class RecipeParserService
     }
 
     /**
-     * Скачивание и сохранение изображения для food.ru
-     * На food.ru основное изображение в og:image, itemprop="image" не работает
+     * Скачивание и сохранение изображения
+     * <img itemprop="image" alt="..." src="https://img.povar.ru/main/...JPG">
      */
     protected function downloadImage(DOMXPath $xpath): ?string
     {
         try {
-            // На food.ru используем og:image
-            $imageUrl = $this->parseOgImage($xpath);
-            
-            if (!$imageUrl) {
-                // Пробуем найти в picture > img
-                $nodes = $xpath->query('//picture//img/@src');
-                if ($nodes && $nodes->length > 0) {
-                    $imageUrl = $nodes->item(0)->nodeValue;
-                }
+            // Пробуем найти изображение с itemprop="image"
+            $nodes = $xpath->query('//img[@itemprop="image"]');
+            if (!$nodes || $nodes->length === 0) {
+                return null;
             }
             
+            $imageUrl = $nodes->item(0)->getAttribute('src');
             if (!$imageUrl) {
                 return null;
             }
@@ -190,17 +174,11 @@ class RecipeParserService
 
             // Генерируем имя файла
             $extension = pathinfo(parse_url($imageUrl, PHP_URL_PATH), PATHINFO_EXTENSION);
-            if (!$extension) {
-                $extension = 'jpg'; // По умолчанию для food.ru CDN
-            }
             $filename = Str::random(40) . '.' . $extension;
             $path = 'recipes/' . $filename;
 
             // Сохраняем в public/storage/recipes
             Storage::disk('public')->put($path, $imageContent);
-
-            // ✨ ДОБАВЛЯЕМ ВОДЯНОЙ ЗНАК ✨
-            $this->watermarkService->addWatermark($path);
 
             return $path;
 
@@ -211,19 +189,19 @@ class RecipeParserService
     }
 
     /**
-     * Парсинг ингредиентов для food.ru
-     * Структура: <tr itemprop="recipeIngredient" class="ingredient">
-     *   <span class="name">Сироп топинамбура</span>
-     *   <span class="value">200</span> <span class="type">г</span>
-     * ВАЖНО: атрибуты с маленькой буквы после loadHTML()
+     * Парсинг ингредиентов
+     * <li itemprop="recipeIngredient" class="ingredient">
+     *   <span class="name">Фундук</span> - 
+     *   <span class="value">100</span>
+     *   <span class="type"> гр.</span>
+     * </li>
      */
     protected function parseIngredients(DOMXPath $xpath): array
     {
         $ingredients = [];
 
         try {
-            // ВАЖНО: itemprop с маленькой буквы 'p' после loadHTML()!
-            $nodes = $xpath->query('//tr[@itemprop="recipeIngredient"]');
+            $nodes = $xpath->query('//li[@itemprop="recipeIngredient"]');
             
             if ($nodes && $nodes->length > 0) {
                 foreach ($nodes as $node) {
@@ -231,19 +209,19 @@ class RecipeParserService
                     $quantity = '';
                     $measure = '';
                     
-                    // Название ингредиента в span.name
+                    // Ищем span с классом "name"
                     $nameNodes = $xpath->query('.//span[@class="name"]', $node);
                     if ($nameNodes && $nameNodes->length > 0) {
                         $name = trim($nameNodes->item(0)->textContent);
                     }
                     
-                    // Количество в span.value
+                    // Ищем span с классом "value"
                     $valueNodes = $xpath->query('.//span[@class="value"]', $node);
                     if ($valueNodes && $valueNodes->length > 0) {
                         $quantity = trim($valueNodes->item(0)->textContent);
                     }
                     
-                    // Единицы измерения в span.type
+                    // Ищем span с классом "type"
                     $typeNodes = $xpath->query('.//span[@class="type"]', $node);
                     if ($typeNodes && $typeNodes->length > 0) {
                         $measure = trim($typeNodes->item(0)->textContent);
@@ -252,8 +230,8 @@ class RecipeParserService
                     if ($name) {
                         $ingredients[] = [
                             'name' => $name,
-                            'quantity' => $quantity . ($measure ? ' ' . $measure : ''),
-                            'measure' => ''
+                            'quantity' => $quantity,
+                            'measure' => $measure
                         ];
                     }
                 }
@@ -266,20 +244,22 @@ class RecipeParserService
     }
 
     /**
-     * Парсинг шагов приготовления для food.ru
-     * Структура: <div itemprop="recipeInstructions" itemtype="https://schema.org/HowToStep">
-     *   <div itemprop="text">Текст шага</div>
-     *   <img itemprop="url" src="...">
+     * Парсинг шагов приготовления
+     * <div class="instruction " itemscope itemtype="https://schema.org/HowToStep">
+     *   <div class="step-number" data-pseudo-text-before="Шаг 1"></div>
+     *   <div class="detailed_step_photo_big">
+     *     <img src="...">
+     *   </div>
+     *   <div class="detailed_step_description_big">Текст шага...</div>
      * </div>
-     * ВАЖНО: атрибуты с маленькой буквы после loadHTML()
      */
     protected function parseSteps(DOMXPath $xpath): array
     {
         $steps = [];
 
         try {
-            // ВАЖНО: itemtype с маленькой буквы после loadHTML()
-            $nodes = $xpath->query('//*[@itemtype="https://schema.org/HowToStep"]');
+            // Ищем div с классом instruction (с пробелом или без)
+            $nodes = $xpath->query('//div[contains(@class, "instruction")][@itemtype="https://schema.org/HowToStep"]');
             
             if ($nodes && $nodes->length > 0) {
                 $stepNumber = 1;
@@ -287,34 +267,36 @@ class RecipeParserService
                     $description = '';
                     $image = null;
                     
-                    // Ищем текст шага в div[@itemprop="text"]
-                    $textNodes = $xpath->query('.//*[@itemprop="text"]', $node);
+                    // Ищем текст шага в div.detailed_step_description_big
+                    $textNodes = $xpath->query('.//div[contains(@class, "detailed_step_description_big")]', $node);
                     if ($textNodes && $textNodes->length > 0) {
                         $description = trim($textNodes->item(0)->textContent);
                     }
                     
-                    // Ищем изображение шага с itemprop="url"
-                    $imgNodes = $xpath->query('.//img[@itemprop="url"]', $node);
+                    // Если не нашли, пробуем p[@itemprop="text"] (старая структура)
+                    if (!$description) {
+                        $textNodes = $xpath->query('.//p[@itemprop="text"]', $node);
+                        if ($textNodes && $textNodes->length > 0) {
+                            $description = trim($textNodes->item(0)->textContent);
+                        }
+                    }
+                    
+                    // Ищем изображение шага
+                    $imgNodes = $xpath->query('.//img', $node);
                     if ($imgNodes && $imgNodes->length > 0) {
-                        $imgSrc = $imgNodes->item(0)->getAttribute('src');
-                        if ($imgSrc) {
-                            $fullImageUrl = null;
-                            if (str_starts_with($imgSrc, '//')) {
-                                $fullImageUrl = 'https:' . $imgSrc;
-                            } elseif (str_starts_with($imgSrc, 'http')) {
-                                $fullImageUrl = $imgSrc;
+                        $imageSrc = $imgNodes->item(0)->getAttribute('src');
+                        if ($imageSrc) {
+                            if (str_starts_with($imageSrc, '//')) {
+                                $image = 'https:' . $imageSrc;
+                            } elseif (str_starts_with($imageSrc, 'http')) {
+                                $image = $imageSrc;
                             } else {
-                                $fullImageUrl = $this->baseUrl . $imgSrc;
-                            }
-                            
-                            // Скачиваем изображение шага и добавляем водяной знак
-                            if ($fullImageUrl) {
-                                $image = $this->downloadStepImage($fullImageUrl);
+                                $image = $this->baseUrl . $imageSrc;
                             }
                         }
                     }
                     
-                    if ($description && strlen($description) > 10) { // Только содержательные шаги
+                    if ($description) {
                         $steps[] = [
                             'step_number' => $stepNumber,
                             'description' => $description,
@@ -332,41 +314,8 @@ class RecipeParserService
     }
 
     /**
-     * Скачивание изображения шага с добавлением водяного знака
-     */
-    protected function downloadStepImage(string $imageUrl): ?string
-    {
-        try {
-            Log::info("Скачивание изображения шага: {$imageUrl}");
-
-            $response = $this->client->get($imageUrl);
-            $imageContent = $response->getBody()->getContents();
-
-            // Генерируем имя файла
-            $extension = pathinfo(parse_url($imageUrl, PHP_URL_PATH), PATHINFO_EXTENSION);
-            if (!$extension) {
-                $extension = 'jpg';
-            }
-            $filename = 'step_' . Str::random(40) . '.' . $extension;
-            $path = 'recipes/steps/' . $filename;
-
-            // Сохраняем в public/storage/recipes/steps
-            Storage::disk('public')->put($path, $imageContent);
-
-            // ✨ ДОБАВЛЯЕМ ВОДЯНОЙ ЗНАК ✨
-            $this->watermarkService->addWatermark($path);
-
-            return $path;
-
-        } catch (\Exception $e) {
-            Log::error("Ошибка скачивания изображения шага: " . $e->getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Парсинг информации о питательности для food.ru
-     * Ищем itemprop="calories", "proteinContent", "fatContent", "carbohydrateContent"
+     * Парсинг информации о питательности
+     * Povar.ru не всегда предоставляет эти данные
      */
     protected function parseNutrition(DOMXPath $xpath): array
     {
@@ -379,46 +328,6 @@ class RecipeParserService
             'fats_percent' => '0',
             'carbs_percent' => '0',
         ];
-
-        try {
-            // Калории
-            $nodes = $xpath->query('//*[@itemprop="calories"]');
-            if ($nodes && $nodes->length > 0) {
-                $text = trim($nodes->item(0)->textContent);
-                if (preg_match('/(\d+)/', $text, $matches)) {
-                    $nutrition['calories'] = $matches[1];
-                }
-            }
-
-            // Белки
-            $nodes = $xpath->query('//*[@itemprop="proteinContent"]');
-            if ($nodes && $nodes->length > 0) {
-                $text = trim($nodes->item(0)->textContent);
-                if (preg_match('/([\d\.]+)/', $text, $matches)) {
-                    $nutrition['proteins'] = $matches[1];
-                }
-            }
-
-            // Жиры
-            $nodes = $xpath->query('//*[@itemprop="fatContent"]');
-            if ($nodes && $nodes->length > 0) {
-                $text = trim($nodes->item(0)->textContent);
-                if (preg_match('/([\d\.]+)/', $text, $matches)) {
-                    $nutrition['fats'] = $matches[1];
-                }
-            }
-
-            // Углеводы
-            $nodes = $xpath->query('//*[@itemprop="carbohydrateContent"]');
-            if ($nodes && $nodes->length > 0) {
-                $text = trim($nodes->item(0)->textContent);
-                if (preg_match('/([\d\.]+)/', $text, $matches)) {
-                    $nutrition['carbs'] = $matches[1];
-                }
-            }
-        } catch (\Exception $e) {
-            Log::error("Ошибка парсинга питательности: " . $e->getMessage());
-        }
 
         return $nutrition;
     }
@@ -514,15 +423,14 @@ class RecipeParserService
     }
 
     /**
-     * Генерация slug из URL для food.ru
-     * URL формат: /recipes/salat-parij-73708 или /recipes/salat-parij
+     * Генерация slug из URL
+     * URL формат: /recipes/salat_parij-73708.html
      */
     protected function generateSlug(string $title, string $url): string
     {
-        // Извлекаем slug из URL (убираем /recipes/ в начале)
-        if (preg_match('/\/recipes\/(.+)/', $url, $matches)) {
-            // Убираем возможный .html в конце
-            return rtrim($matches[1], '/');
+        // Извлекаем slug из URL
+        if (preg_match('/\/recipes\/(.+)\.html/', $url, $matches)) {
+            return $matches[1];
         }
         
         // Если не получилось, создаем из названия
@@ -613,47 +521,29 @@ class RecipeParserService
     }
 
     /**
-     * Парсинг категорий для food.ru
-     * На food.ru берем первые категории из nav (исключаем уровни сложности)
+     * Парсинг категорий
+     * <span itemprop="recipeCategory">Десерты</span>
      */
     protected function parseCategories(DOMXPath $xpath): array
     {
         $categories = [];
         
         try {
-            // Ищем ссылки на категории в навигации (без дефисов в URL)
-            // Пример: /recipes/zakuski, /recipes/salaty
-            $nodes = $xpath->query('//nav//a[contains(@href, "/recipes/") and not(contains(@href, "-"))]');
+            // Ищем span itemprop="recipeCategory"
+            $nodes = $xpath->query('//span[@itemprop="recipeCategory"]');
             
             if ($nodes && $nodes->length > 0) {
                 $position = 0;
-                $excludeCategories = ['Доступный ЗОЖ', 'Базовый уровень', 'Продвинутый уровень', 'Food.ru'];
-                
                 foreach ($nodes as $node) {
                     $name = trim($node->textContent);
-                    $href = $node->getAttribute('href');
-                    
-                    // Пропускаем уровни сложности и пустые
-                    if ($name && !in_array($name, $excludeCategories) && $href) {
-                        // Проверяем, что это действительно категория (формат /recipes/salaty)
-                        if (preg_match('#^/recipes/([a-z-]+)$#', $href)) {
-                            if (!isset($categories[$name])) { // Избегаем дублей
-                                $categories[$name] = [
-                                    'name' => $name,
-                                    'position' => $position++,
-                                ];
-                            }
-                        }
-                    }
-                    
-                    // Берём максимум 5 категорий
-                    if ($position >= 5) {
-                        break;
+                    if ($name) {
+                        $categories[] = [
+                            'name' => $name,
+                            'position' => $position++,
+                        ];
                     }
                 }
             }
-            
-            $categories = array_values($categories);
             
             if (!empty($categories)) {
                 Log::info("✅ Найдено категорий: " . count($categories) . " - " . implode(', ', array_column($categories, 'name')));

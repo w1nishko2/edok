@@ -227,10 +227,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="nutrition-note">
-                    <i class="bi bi-info-circle"></i>
-                    <small>Калории рассчитываются автоматически по формуле: <strong>белки×4 + жиры×9 + углеводы×4</strong>. Все значения пересчитываются при изменении количества порций.</small>
-                </div>
+              
             </section>
         @endif
 

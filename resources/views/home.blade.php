@@ -16,7 +16,7 @@
         </header>
 
         @if($recipes->count() > 0)
-            <div class="row g-4" id="recipes-container" data-next-page="{{ $recipes->nextPageUrl() }}">
+            <div class="row g-3 g-sm-4" id="recipes-container" data-next-page="{{ $recipes->nextPageUrl() }}">
                 @include('partials.recipe-cards', ['recipes' => $recipes])
             </div>
 
